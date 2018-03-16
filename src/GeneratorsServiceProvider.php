@@ -1,6 +1,6 @@
 <?php
 
-namespace Webfactor\Laravel\OpeningHours;
+namespace Webfactor\Laravel\Generators;
 
 use Illuminate\Support\ServiceProvider;
 use Webfactor\Laravel\Generators\Commands\MakeCrudEntity;

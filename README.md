@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
+[![StyleCI][ico-style-ci]][link-style-ci]
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
@@ -18,7 +19,7 @@ $ composer require webfactor/laravel-generators
 ## Usage
 
 ``` bash
-php artisan make:crud entity
+php artisan make:entity {entity_name}
 ```
 
 Use *singular* for entity. This will automatically create (while respecting naming conventions):
@@ -57,12 +58,14 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/webfactor/laravel-generators.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-style-ci]: https://styleci.io/repos/125574603/shield
 [ico-travis]: https://img.shields.io/travis/webfactor/laravel-generators/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/webfactor/laravel-generators.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/webfactor/laravel-generators.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/webfactor/laravel-generators.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/webfactor/laravel-generators
+[link-style-ci]: https://styleci.io/repos/125574603
 [link-travis]: https://travis-ci.org/webfactor/laravel-generators
 [link-scrutinizer]: https://scrutinizer-ci.com/g/webfactor/laravel-generators/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/webfactor/laravel-generators

@@ -3,7 +3,7 @@
 namespace Webfactor\Laravel\Generators;
 
 use Illuminate\Support\ServiceProvider;
-use Webfactor\Laravel\Generators\Commands\MakeCrudEntity;
+use Webfactor\Laravel\Generators\Commands\MakeEntity;
 
 class GeneratorsServiceProvider extends ServiceProvider
 {
@@ -16,9 +16,17 @@ class GeneratorsServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                MakeCrudEntity::class,
+                MakeEntity::class,
             ]);
+
+            $this->publishes([
+                __DIR__ . '/../config/generators.php' => config_path('webfactor/generators.php'),
+            ], 'config');
         }
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/generators.php', 'webfactor.generators'
+        );
     }
 
     /**

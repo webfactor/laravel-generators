@@ -19,7 +19,7 @@ $ composer require webfactor/laravel-generators
 ## Usage
 
 ``` bash
-php artisan make:crud entity
+php artisan make:entity {entity_name}
 ```
 
 Use *singular* for entity. This will automatically create (while respecting naming conventions):

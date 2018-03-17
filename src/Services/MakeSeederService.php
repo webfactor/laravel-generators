@@ -10,7 +10,7 @@ class MakeSeederService extends MakeServiceAbstract implements MakeServiceInterf
     public function make()
     {
         $this->command->call('make:seeder', [
-            'name' => $this->getName($this->entity),
+            'name' => call_user_func([$this->options['name_conversion'], 'getName'], $this->entity),
         ]);
     }
 }

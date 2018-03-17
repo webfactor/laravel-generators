@@ -10,7 +10,7 @@ class MakeMigrationService extends MakeServiceAbstract implements MakeServiceInt
     public function make()
     {
         $this->command->call('make:migration:schema', [
-            'name' => $this->getName($this->entity),
+            'name' => call_user_func([$this->options['name_conversion'], 'getName'], $this->entity),
             '--model' => 0,
             '--schema' => $this->getSchema(),
         ]);

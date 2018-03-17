@@ -10,7 +10,7 @@ class MakeBackpackCrudService extends MakeServiceAbstract implements MakeService
     public function make()
     {
         $this->command->call('backpack:crud', [
-            'name' => $this->getName($this->entity),
+            'name' => call_user_func([$this->options['name_conversion'], 'getName'], $this->entity),
         ]);
     }
 }

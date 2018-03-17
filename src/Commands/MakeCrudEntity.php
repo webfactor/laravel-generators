@@ -12,14 +12,12 @@ class MakeCrudEntity extends Command
      * @var string
      */
     protected $signature = 'make:crud {entity}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Make full Backpack CRUD Entity';
-
     protected $entity;
     protected $entities;
     protected $entitiesSnakeCase;
@@ -47,7 +45,6 @@ class MakeCrudEntity extends Command
         $this->makeFactory();
         $this->makeSeeder();
         $this->makeCrud();
-
     }
 
     private function handleArguments(): void
@@ -55,7 +52,6 @@ class MakeCrudEntity extends Command
         $this->entity = $this->argument('entity');
         $this->entities = str_plural($this->entity);
         $this->entitiesSnakeCase = snake_case($this->entities);
-
     }
 
     private function makeMigration(): void
@@ -63,29 +59,28 @@ class MakeCrudEntity extends Command
         $this->call('make:migration:schema', [
             'name' => 'create_' . $this->entitiesSnakeCase . '_table',
             '--model' => 0,
-            '--schema' => 'name:string'
+            '--schema' => 'name:string',
         ]);
     }
 
     private function makeFactory(): void
     {
         $this->call('make:factory', [
-            'name' => $this->entity . 'Factory'
+            'name' => $this->entity . 'Factory',
         ]);
     }
 
     private function makeSeeder(): void
     {
         $this->call('make:seeder', [
-            'name' => $this->entities . 'TableSeeder'
+            'name' => $this->entities . 'TableSeeder',
         ]);
     }
 
     private function makeCrud(): void
     {
         $this->call('backpack:crud', [
-            'name' => $this->entity
+            'name' => $this->entity,
         ]);
     }
-
 }

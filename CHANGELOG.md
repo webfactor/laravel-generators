@@ -21,6 +21,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 1.2.0 - 2018-03-18
+
+### Added
+- integrate backpack crud commands and stubs
+
 ## 1.1.1 - 2018-03-17
 
 ### Fixed

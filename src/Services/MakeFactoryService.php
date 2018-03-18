@@ -10,7 +10,12 @@ class MakeFactoryService extends MakeServiceAbstract implements MakeServiceInter
     public function make()
     {
         $this->command->call('make:factory', [
-            'name' => call_user_func([$this->options['name_conversion'], 'getName'], $this->entity),
+            'name' => $this->getName($this->entity),
         ]);
+    }
+
+    public function getName(string $entity): string
+    {
+        return ucfirst($entity) . 'Factory';
     }
 }

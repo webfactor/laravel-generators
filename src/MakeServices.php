@@ -21,8 +21,8 @@ class MakeServices
 
     public function call()
     {
-        foreach ($this->services as $service => $options) {
-            $this->callService(new $service($this->command, $options));
+        foreach ($this->services as $service) {
+            $this->callService(new $service($this->command));
         }
     }
 

@@ -3,6 +3,9 @@
 namespace Webfactor\Laravel\Generators;
 
 use Illuminate\Support\ServiceProvider;
+use Webfactor\Laravel\Generators\Commands\MakeBackpackCrudController;
+use Webfactor\Laravel\Generators\Commands\MakeBackpackCrudModel;
+use Webfactor\Laravel\Generators\Commands\MakeBackpackCrudRequest;
 use Webfactor\Laravel\Generators\Commands\MakeEntity;
 
 class GeneratorsServiceProvider extends ServiceProvider
@@ -17,6 +20,9 @@ class GeneratorsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeEntity::class,
+                MakeBackpackCrudController::class,
+                MakeBackpackCrudModel::class,
+                MakeBackpackCrudRequest::class,
             ]);
 
             $this->publishes([

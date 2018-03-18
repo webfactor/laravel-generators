@@ -7,13 +7,11 @@ use Webfactor\Laravel\Generators\Commands\MakeEntity;
 abstract class MakeServiceAbstract
 {
     protected $command;
-    protected $options;
     protected $entity;
 
-    public function __construct(MakeEntity $command, array $options)
+    public function __construct(MakeEntity $command)
     {
         $this->command = $command;
-        $this->options = $options;
         $this->entity = $command->argument('entity');
     }
 }

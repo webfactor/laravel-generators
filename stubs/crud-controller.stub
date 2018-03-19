@@ -6,8 +6,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Models\DummyClass;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\DummyClassRequest as StoreRequest;
-use App\Http\Requests\DummyClassRequest as UpdateRequest;
+use App\Http\Requests\Admin\DummyClassRequest as StoreRequest;
+use App\Http\Requests\Admin\DummyClassRequest as UpdateRequest;
 
 class DummyClassCrudController extends CrudController
 {

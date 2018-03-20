@@ -10,7 +10,7 @@ class MakeBackpackCrudModelService extends MakeServiceAbstract implements MakeSe
     public function make()
     {
         $this->command->call('make:crud-model', [
-            'name' => $this->getName($this->entity),
+            'name' => $this->getName($this->command->entity),
         ]);
     }
 

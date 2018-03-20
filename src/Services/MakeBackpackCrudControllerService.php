@@ -10,7 +10,7 @@ class MakeBackpackCrudControllerService extends MakeServiceAbstract implements M
     public function make()
     {
         $this->command->call('make:crud-controller', [
-            'name' => $this->getName($this->entity),
+            'name' => $this->getName($this->command->entity),
         ]);
     }
 

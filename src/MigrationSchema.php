@@ -2,16 +2,26 @@
 
 namespace Webfactor\Laravel\Generators;
 
+use Illuminate\Support\Collection;
+
 class MigrationSchema
 {
-    protected $schema;
+    protected $structure;
 
     public function __construct(string $schema)
     {
-        $this->schema = collect();
+        $this->structure = collect();
 
         foreach (explode(',', $schema) as $field) {
-            $this->schema->push(new MigrationField($field));
+            $this->structure->push(new MigrationField($field));
         }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getStructure(): Collection
+    {
+        return $this->structure;
     }
 }

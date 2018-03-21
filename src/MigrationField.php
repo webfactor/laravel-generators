@@ -4,17 +4,17 @@ namespace Webfactor\Laravel\Generators;
 
 class MigrationField
 {
-    protected $name;
+    private $name;
 
-    protected $type;
+    private $type;
 
-    protected $nullable = false;
+    private $nullable = false;
 
-    protected $unique = false;
+    private $unique = false;
 
-    protected $default = null;
+    private $default = null;
 
-    protected $foreign = null;
+    private $foreign = null;
 
     public function __construct(string $field)
     {
@@ -52,5 +52,45 @@ class MigrationField
 
             return $this->default = $match[1];
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNullable()
+    {
+        return $this->nullable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnique(): bool
+    {
+        return $this->unique;
     }
 }

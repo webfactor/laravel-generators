@@ -9,6 +9,8 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
 {
     protected $relativeToBasePath = 'app/Models';
 
+    private $fillable;
+
     public function call()
     {
         $this->command->call('make:crud-model', [
@@ -16,10 +18,37 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
         ]);
 
         $this->addLatestFileToIdeStack();
+        $this->fillFillableAttributeInGeneratedModelFromSchema();
     }
 
+    /**
+     * @param string $entity
+     *
+     * @return string
+     */
     public function getName(string $entity): string
     {
         return ucfirst($entity);
+    }
+
+    private function fillFillableAttributeInGeneratedModelFromSchema()
+    {
+        $modelFile = end($this->command->filesToBeOpened);
+
+        $model = $this->filesystem->get($modelFile);
+        $model = str_replace('\'schemafields\'', $this->getFillableFromSchema(), $model);
+        $this->filesystem->put($modelFile, $model);
+    }
+
+    /**
+     * @return string
+     */
+    private function getFillableFromSchema()
+    {
+        $this->command->schema->getStructure()->each(function ($field) {
+            $this->fillable .= '\'' . $field->getName() . '\',';
+        });
+
+        return $this->fillable;
     }
 }

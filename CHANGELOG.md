@@ -28,6 +28,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - `OpenIdeService` opens all generated file with PhpStorm if command is called with `--ide={ide}`
 - `RouteService` adds Backpack Crud route to admin.php
 
+### Changed
+
+- `BackpackCrudModelService` will fill `$fillable` in Model automatically from scheme (if given)
+- `BackpackCrudRequestService` will fill `rules()` in Request automatically from scheme (if given)
+
 ## 1.2.0 - 2018-03-18
 
 ### Added

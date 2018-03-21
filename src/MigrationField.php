@@ -115,4 +115,22 @@ class MigrationField
 
         return $rule;
     }
+
+    public function makeColumn()
+    {
+        return [
+            'name' => 'title',
+            'type' => 'text',
+            'label' => 'Title',
+        ];
+    }
+
+    public function makeField()
+    {
+        return [
+            'name'  => 'title',
+            'type'  => 'text',
+            'label' => 'Title',
+        ];
+    }
 }

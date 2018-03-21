@@ -2,10 +2,9 @@
 
 namespace Webfactor\Laravel\Generators\Services;
 
-use Illuminate\Filesystem\Filesystem;
-use Webfactor\Laravel\Generators\Commands\MakeEntity;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
+use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
 
 class LanguageService extends ServiceAbstract implements ServiceInterface
 {
@@ -59,23 +58,12 @@ class LanguageService extends ServiceAbstract implements ServiceInterface
 
     private function getTranslationFileContent()
     {
+        $content = ShortSyntaxArray::parse($this->translation);
+
         return <<<FILE
 <?php
         
-return {$this->exportToShortSyntaxArrayString($this->translation)};
+return {$content};
 FILE;
-    }
-
-    private function exportToShortSyntaxArrayString(array $expression, $indent = 4)
-    {
-        $object = json_decode(str_replace(['(', ')'], ['&#40', '&#41'], json_encode($expression)), true);
-        $export = str_replace(['array (', ')', '&#40', '&#41'], ['[', ']', '(', ')'], var_export($object, true));
-        $export = preg_replace("/ => \n[^\S\n]*\[/m", ' => [', $export);
-        $export = preg_replace("/ => \[\n[^\S\n]*\]/m", ' => []', $export);
-        $spaces = str_repeat(' ', $indent);
-        $export = preg_replace("/([ ]{2})(?![^ ])/m", $spaces, $export);
-        $export = preg_replace("/^([ ]{2})/m", $spaces, $export);
-
-        return $export;
     }
 }

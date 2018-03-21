@@ -3,6 +3,7 @@
 namespace Webfactor\Laravel\Generators\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Finder\SplFileInfo;
 use Webfactor\Laravel\Generators\MakeServices;
 use Webfactor\Laravel\Generators\MigrationSchema;
 
@@ -55,5 +56,16 @@ class MakeEntity extends Command
         $this->schema = new MigrationSchema($this->option('schema'));
 
         (new MakeServices($this))->call();
+    }
+
+    /**
+     * Adds file to $filesToBeOpened stack.
+     *
+     * @param $file
+     * @return void
+     */
+    public function addFile(SplFileInfo $file): void
+    {
+        array_push($this->filesToBeOpened, $file);
     }
 }

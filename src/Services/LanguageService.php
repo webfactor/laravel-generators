@@ -15,21 +15,15 @@ class LanguageService extends ServiceAbstract implements ServiceInterface
 
     private $currentLanguage;
 
-    private $files;
-
-    public function __construct(MakeEntity $command)
-    {
-        parent::__construct($command);
-
-        $this->files = new Filesystem();
-    }
-
     public function call()
     {
         $this->currentLanguage = \Lang::locale();
+        $this->relativeToBasePath = 'resources/lang/' . $this->currentLanguage;
         $this->languageFile = $this->getFilePath();
 
         $this->writeFile($this->getName($this->command->entity));
+
+        $this->addLatestFileToIdeStack();
     }
 
     public function getName(string $entity): string
@@ -46,7 +40,7 @@ class LanguageService extends ServiceAbstract implements ServiceInterface
      */
     private function writeFile($name)
     {
-        if ($this->files->exists($this->languageFile)) {
+        if ($this->filesystem->exists($this->languageFile)) {
             $this->translation = include $this->languageFile;
         }
 
@@ -55,7 +49,7 @@ class LanguageService extends ServiceAbstract implements ServiceInterface
             'plural'   => ucfirst(str_plural($name)),
         ]);
 
-        return $this->files->put($this->languageFile, $this->getTranslationFileContent());
+        return $this->filesystem->put($this->languageFile, $this->getTranslationFileContent());
     }
 
     private function getFilePath()

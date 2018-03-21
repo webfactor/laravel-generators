@@ -10,7 +10,7 @@ class PhpStormOpener extends OpenInIdeAbstract implements OpenInIdeInterface
     public function open()
     {
         foreach ($this->files as $file) {
-            exec('pstorm ' . $file);
+            exec('pstorm ' . $file->getPathname());
         }
     }
 }

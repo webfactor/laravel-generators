@@ -9,24 +9,19 @@ use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
 class RouteService extends ServiceAbstract implements ServiceInterface
 {
-    private $files;
+    protected $relativeToBasePath = 'routes';
 
     private $adminFile;
-
-    public function __construct(MakeEntity $command)
-    {
-        parent::__construct($command);
-
-        $this->files = new Filesystem();
-    }
 
     public function call()
     {
         $this->adminFile = $this->getFilePath();
 
-        if ($this->files->exists($this->adminFile)) {
+        if ($this->filesystem->exists($this->adminFile)) {
             $this->writeFile();
         }
+
+        $this->addLatestFileToIdeStack();
     }
 
     private function getRouteName(): string
@@ -48,7 +43,7 @@ class RouteService extends ServiceAbstract implements ServiceInterface
      */
     private function writeFile()
     {
-        $this->files->append($this->adminFile, $this->getRouteString());
+        $this->filesystem->append($this->adminFile, $this->getRouteString());
     }
 
     private function getFilePath()

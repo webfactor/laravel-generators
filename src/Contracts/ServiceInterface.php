@@ -2,7 +2,7 @@
 
 namespace Webfactor\Laravel\Generators\Contracts;
 
-interface MakeServiceInterface
+interface ServiceInterface
 {
-    public function make();
+    public function call();
 }

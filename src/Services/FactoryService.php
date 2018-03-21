@@ -2,12 +2,12 @@
 
 namespace Webfactor\Laravel\Generators\Services;
 
-use Webfactor\Laravel\Generators\Contracts\MakeServiceAbstract;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceInterface;
+use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
+use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
-class MakeFactoryService extends MakeServiceAbstract implements MakeServiceInterface
+class FactoryService extends ServiceAbstract implements ServiceInterface
 {
-    public function make()
+    public function call()
     {
         $this->command->call('make:factory', [
             'name'    => $this->getName($this->command->entity),

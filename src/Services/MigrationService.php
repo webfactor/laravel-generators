@@ -3,12 +3,12 @@
 namespace Webfactor\Laravel\Generators\Services;
 
 use Webfactor\Laravel\Generators\Commands\MakeEntity;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceAbstract;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceInterface;
+use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
+use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
-class MakeMigrationService extends MakeServiceAbstract implements MakeServiceInterface
+class MigrationService extends ServiceAbstract implements ServiceInterface
 {
-    public function make()
+    public function call()
     {
         dd($this->command->schema);
 

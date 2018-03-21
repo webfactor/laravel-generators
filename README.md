@@ -8,18 +8,20 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+This is a package developed by us for internal use. It is supposed to help us during development and save plenty of time by automating many steps while creating typical entities. You can write your own Services (have to implement `Webfactor\Laravel\Generators\Contracts\ServiceInterface`) and register them in the `generators.php` config file, or use this as an inspiration for a own implementation.
+
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require webfactor/laravel-generators
+$ composer require-dev webfactor/laravel-generators
 ```
 
 ## Usage
 
 ``` bash
-php artisan make:entity {entity_name}
+php artisan make:entity {entity_name} {--schema=} {}
 ```
 
 Use *singular* for entity. This will automatically create (while respecting naming conventions):

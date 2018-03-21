@@ -4,10 +4,10 @@ namespace Webfactor\Laravel\Generators\Services;
 
 use Illuminate\Filesystem\Filesystem;
 use Webfactor\Laravel\Generators\Commands\MakeEntity;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceAbstract;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceInterface;
+use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
+use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
-class MakeRouteService extends MakeServiceAbstract implements MakeServiceInterface
+class RouteService extends ServiceAbstract implements ServiceInterface
 {
     private $files;
 
@@ -20,7 +20,7 @@ class MakeRouteService extends MakeServiceAbstract implements MakeServiceInterfa
         $this->files = new Filesystem();
     }
 
-    public function make()
+    public function call()
     {
         $this->adminFile = $this->getFilePath();
 

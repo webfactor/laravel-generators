@@ -4,10 +4,10 @@ namespace Webfactor\Laravel\Generators\Services;
 
 use Illuminate\Filesystem\Filesystem;
 use Webfactor\Laravel\Generators\Commands\MakeEntity;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceAbstract;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceInterface;
+use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
+use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
-class MakeLanguageService extends MakeServiceAbstract implements MakeServiceInterface
+class LanguageService extends ServiceAbstract implements ServiceInterface
 {
     private $languageFile;
 
@@ -24,7 +24,7 @@ class MakeLanguageService extends MakeServiceAbstract implements MakeServiceInte
         $this->files = new Filesystem();
     }
 
-    public function make()
+    public function call()
     {
         $this->currentLanguage = \Lang::locale();
         $this->languageFile = $this->getFilePath();

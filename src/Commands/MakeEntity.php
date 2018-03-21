@@ -9,7 +9,15 @@ use Webfactor\Laravel\Generators\MigrationSchema;
 class MakeEntity extends Command
 {
     /**
-     * The name of the entity beeing created.
+     * Paths to files which should automatically be opened in IDE if the
+     * option --ide is set (and IDE capable).
+     *
+     * @var array
+     */
+    public $filesToBeOpened = [];
+
+    /**
+     * The name of the entity being created.
      *
      * @var string
      */
@@ -27,7 +35,7 @@ class MakeEntity extends Command
      *
      * @var string
      */
-    protected $signature = 'make:entity {entity} {--schema="name:string"} {--migrate}';
+    protected $signature = 'make:entity {entity} {--schema="name:string"} {--migrate} {--ide=}';
 
     /**
      * The console command description.

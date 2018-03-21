@@ -2,7 +2,6 @@
 
 namespace Webfactor\Laravel\Generators\Services;
 
-use Webfactor\Laravel\Generators\Commands\MakeEntity;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 

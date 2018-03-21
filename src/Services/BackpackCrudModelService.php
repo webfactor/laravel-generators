@@ -36,7 +36,7 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
         $modelFile = end($this->command->filesToBeOpened);
 
         $model = $this->filesystem->get($modelFile);
-        $model = str_replace('\'schemafields\'', $this->getFillableFromSchema(), $model);
+        $model = str_replace('__fillable__', $this->getFillableFromSchema(), $model);
         $this->filesystem->put($modelFile, $model);
     }
 
@@ -46,7 +46,7 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
     private function getFillableFromSchema()
     {
         $this->command->schema->getStructure()->each(function ($field) {
-            $this->fillable .= '\'' . $field->getName() . '\',';
+            $this->fillable .= "'" . $field->getName() . "',\n";
         });
 
         return $this->fillable;

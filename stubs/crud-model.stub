@@ -19,7 +19,7 @@ class DummyClass extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['schemafields'];
+    protected $fillable = [__fillable__];
     // protected $hidden = [];
     // protected $dates = [];
 

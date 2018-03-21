@@ -30,9 +30,9 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
     {
         $requestFile = end($this->command->filesToBeOpened);
 
-        $model = $this->filesystem->get($requestFile);
-        $model = str_replace('__rules__', $this->getRulesFromSchema(), $model);
-        $this->filesystem->put($requestFile, $model);
+        $request = $this->filesystem->get($requestFile);
+        $request = str_replace('__rules__', $this->getRulesFromSchema(), $request);
+        $this->filesystem->put($requestFile, $request);
     }
 
     /**

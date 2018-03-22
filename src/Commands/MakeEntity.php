@@ -5,7 +5,7 @@ namespace Webfactor\Laravel\Generators\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\SplFileInfo;
 use Webfactor\Laravel\Generators\MakeServices;
-use Webfactor\Laravel\Generators\MigrationSchema;
+use Webfactor\Laravel\Generators\Schemas\MigrationSchema;
 
 class MakeEntity extends Command
 {

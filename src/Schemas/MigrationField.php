@@ -1,6 +1,6 @@
 <?php
 
-namespace Webfactor\Laravel\Generators;
+namespace Webfactor\Laravel\Generators\Schemas;
 
 class MigrationField
 {

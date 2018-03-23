@@ -3,8 +3,8 @@
 namespace Webfactor\Laravel\Generators;
 
 use Webfactor\Laravel\Generators\Commands\MakeEntity;
-use Webfactor\Laravel\Generators\Contracts\MakeServiceInterface;
-use Webfactor\Laravel\Generators\Services\MakeMigrationService;
+use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
+use Webfactor\Laravel\Generators\Services\MigrationService;
 
 class MakeServices
 {
@@ -26,8 +26,8 @@ class MakeServices
         }
     }
 
-    private function callService(MakeServiceInterface $service)
+    private function callService(ServiceInterface $service)
     {
-        $service->make();
+        $service->call();
     }
 }

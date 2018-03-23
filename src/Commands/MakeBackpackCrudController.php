@@ -83,6 +83,7 @@ class MakeBackpackCrudController extends GeneratorCommand
         $table = str_plural(ltrim(strtolower(preg_replace('/[A-Z]/', '_$0', str_replace($this->getNamespace($name).'\\', '', $name))), '_'));
 
         $stub = str_replace('DummyTable', $table, $stub);
+        $stub = str_replace('dummy_name', snake_case($this->argument('name')), $stub);
         $stub = str_replace('dummy_class', strtolower(str_replace($this->getNamespace($name).'\\', '', $name)), $stub);
 
         return $this;
@@ -99,7 +100,9 @@ class MakeBackpackCrudController extends GeneratorCommand
     {
         $stub = $this->files->get($this->getStub());
 
-        return $this->replaceNamespace($stub, $name)->replaceNameStrings($stub, $name)->replaceClass($stub, $name);
+        return $this->replaceNamespace($stub, $name)
+            ->replaceNameStrings($stub, $name)
+            ->replaceClass($stub, $name);
     }
 
     /**

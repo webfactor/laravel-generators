@@ -5,6 +5,8 @@ namespace Webfactor\Laravel\Generators\Services;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
+use Webfactor\Laravel\Generators\Schemas\CrudColumn;
+use Webfactor\Laravel\Generators\Schemas\CrudField;
 
 class BackpackCrudControllerService extends ServiceAbstract implements ServiceInterface
 {
@@ -21,6 +23,10 @@ class BackpackCrudControllerService extends ServiceAbstract implements ServiceIn
         ]);
 
         $this->addLatestFileToIdeStack();
+
+        $this->setColumnsFromSchema();
+        $this->setFieldsFromSchema();
+
         $this->fillColumnsAndFieldsInGeneratedControllerFromSchema();
     }
 
@@ -29,37 +35,59 @@ class BackpackCrudControllerService extends ServiceAbstract implements ServiceIn
         return ucfirst($entity);
     }
 
-    private function fillColumnsAndFieldsInGeneratedControllerFromSchema()
+    private function fillColumnsAndFieldsInGeneratedControllerFromSchema(): void
     {
         $controllerFile = end($this->command->filesToBeOpened);
 
         $controller = $this->filesystem->get($controllerFile);
-        $controller = str_replace('__columns__', $this->getColumnsFromSchema(), $controller);
-        $controller = str_replace('__fields__', $this->getFieldsFromSchema(), $controller);
+        $controller = str_replace('__columns__', $this->getColumnsAsString(), $controller);
+        $controller = str_replace('__fields__', $this->getfieldsAsString(), $controller);
         $this->filesystem->put($controllerFile, $controller);
     }
 
-    /**
-     * @return string
-     */
-    private function getColumnsFromSchema()
+    private function setColumnsFromSchema(): void
     {
         $this->command->schema->getStructure()->each(function ($field) {
-            array_push($this->columns, $field->makeColumn());
+            array_push($this->columns, new CrudColumn($field));
         });
+    }
 
-        return ShortSyntaxArray::parse($this->columns);
+    private function setFieldsFromSchema(): void
+    {
+        $this->command->schema->getStructure()->each(function ($field) {
+            array_push($this->fields, new CrudField($field));
+        });
     }
 
     /**
      * @return string
      */
-    private function getFieldsFromSchema()
+    private function getColumnsAsString(): string
     {
-        $this->command->schema->getStructure()->each(function ($field) {
-            array_push($this->fields, $field->makeField());
-        });
+        $columnsArray = [];
 
-        return ShortSyntaxArray::parse($this->fields);
+        foreach ($this->columns as $crudColumn) {
+            if ($column = $crudColumn->generateColumn()) {
+                array_push($columnsArray, $column);
+            }
+        }
+
+        return ShortSyntaxArray::parse($columnsArray);
+    }
+
+    /**
+     * @return string
+     */
+    private function getfieldsAsString(): string
+    {
+        $fieldsArray = [];
+
+        foreach ($this->fields as $crudfield) {
+            if ($field = $crudfield->generateField()) {
+                array_push($fieldsArray, $field);
+            }
+        }
+
+        return ShortSyntaxArray::parse($fieldsArray);
     }
 }

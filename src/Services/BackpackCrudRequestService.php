@@ -25,12 +25,16 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
         $this->fillRulesInGeneratedRequest();
     }
 
+    /**
+     * @param string $entity
+     * @return string
+     */
     public function getName(string $entity): string
     {
         return ucfirst($entity);
     }
 
-    private function fillRulesInGeneratedRequest()
+    private function fillRulesInGeneratedRequest(): void
     {
         $requestFile = end($this->command->filesToBeOpened);
 
@@ -39,17 +43,17 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
         $this->filesystem->put($requestFile, $request);
     }
 
-    /**
-     * @return string
-     */
-    private function setRulesFromSchema()
+    private function setRulesFromSchema(): void
     {
         $this->command->schema->getStructure()->each(function ($field) {
             array_push($this->rules, new ValidationRule($field));
         });
     }
 
-    private function getRulesAsString()
+    /**
+     * @return string
+     */
+    private function getRulesAsString(): string
     {
         $rulesArray = [];
 

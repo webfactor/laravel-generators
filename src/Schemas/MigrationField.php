@@ -93,44 +93,4 @@ class MigrationField
     {
         return $this->unique;
     }
-
-    public function makeValidationRule(): string
-    {
-        $rule = 'required';
-
-        switch ($this->getType()) {
-
-            case 'string':
-                $rule .= '|between:3,255';
-                break;
-
-            case 'integer':
-                $rule .= '|integer';
-                break;
-
-            case 'date':
-                $rule .= '|date';
-                break;
-        }
-
-        return $rule;
-    }
-
-    public function makeColumn()
-    {
-        return [
-            'name' => 'title',
-            'type' => 'text',
-            'label' => 'Title',
-        ];
-    }
-
-    public function makeField()
-    {
-        return [
-            'name'  => 'title',
-            'type'  => 'text',
-            'label' => 'Title',
-        ];
-    }
 }

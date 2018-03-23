@@ -4,12 +4,14 @@ namespace Webfactor\Laravel\Generators\Services;
 
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
+use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
+use Webfactor\Laravel\Generators\Schemas\ValidationRule;
 
 class BackpackCrudRequestService extends ServiceAbstract implements ServiceInterface
 {
     protected $relativeToBasePath = 'app/Http/Requests/Admin';
 
-    private $rules;
+    private $rules = [];
 
     public function call()
     {
@@ -18,7 +20,9 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
         ]);
 
         $this->addLatestFileToIdeStack();
-        $this->fillRulesInGeneratedRequestFromSchema();
+
+        $this->setRulesFromSchema();
+        $this->fillRulesInGeneratedRequest();
     }
 
     public function getName(string $entity): string
@@ -26,26 +30,35 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
         return ucfirst($entity);
     }
 
-    private function fillRulesInGeneratedRequestFromSchema()
+    private function fillRulesInGeneratedRequest()
     {
         $requestFile = end($this->command->filesToBeOpened);
 
         $request = $this->filesystem->get($requestFile);
-        $request = str_replace('__rules__', $this->getRulesFromSchema(), $request);
+        $request = str_replace('__rules__', $this->getRulesAsString(), $request);
         $this->filesystem->put($requestFile, $request);
     }
 
     /**
      * @return string
      */
-    private function getRulesFromSchema()
+    private function setRulesFromSchema()
     {
         $this->command->schema->getStructure()->each(function ($field) {
-            if (!$field->isNullable()) {
-                $this->rules .= "'" . $field->getName() . "' => '" . $field->makeValidationRule() . "',\n";
-            }
+            array_push($this->rules, new ValidationRule($field));
         });
+    }
 
-        return $this->rules;
+    private function getRulesAsString()
+    {
+        $rulesArray = [];
+
+        foreach ($this->rules as $validationRule) {
+            if ($ruleString = $validationRule->generateRuleString()) {
+                $rulesArray[$validationRule->getField()] = $ruleString;
+            }
+        }
+
+        return ShortSyntaxArray::parse($rulesArray);
     }
 }

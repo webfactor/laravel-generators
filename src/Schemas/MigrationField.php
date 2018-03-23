@@ -57,7 +57,7 @@ class MigrationField
     /**
      * @return string
      */
-    public function getField()
+    public function getName()
     {
         return $this->name;
     }

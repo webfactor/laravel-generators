@@ -17,7 +17,7 @@ class ValidationRule
         }
 
         $this->type = $migrationField->getType();
-        $this->field = $migrationField->getField();
+        $this->field = $migrationField->getName();
     }
 
     public function generateRuleString(): ?string

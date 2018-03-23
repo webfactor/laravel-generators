@@ -11,7 +11,7 @@ class CrudField
     public function __construct(MigrationField $migrationField)
     {
         $this->type = $migrationField->getType();
-        $this->field = $migrationField->getField();
+        $this->field = $migrationField->getName();
     }
 
     public function generateField(): array

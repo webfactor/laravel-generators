@@ -21,7 +21,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
-## 2.0.0 - 2018-03-21
+## 2.0.0 - 2018-03-23
 
 ### Added
 - `LanguageService` generates models.php translation file (if not exists) and fill singular/plural translation
@@ -32,6 +32,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 - `BackpackCrudModelService` will fill `$fillable` in Model automatically from scheme (if given)
 - `BackpackCrudRequestService` will fill `rules()` in Request automatically from scheme (if given)
+- `BackpackCrudControllerService` will add CrudFields and CrudColumns in Controller automatically from scheme (if given) - very rudimentary for now, more functionality planned
 
 ## 1.2.0 - 2018-03-18
 

@@ -26,15 +26,17 @@ composer require-dev webfactor/laravel-generators
 php artisan make:entity {entity_name} {--schema=} {--ide=}
 ```
 
+`--schema` currently uses syntax from [Laravel 5 Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended)
+
 Use *singular* for entity. This will automatically create (while respecting our internal naming conventions):
 
 * Migration
 * Factory
 * Seeder
 * Backpack CRUD (modified Backpack Generator):
-  * Model
-  * Request
-  * Controller
+  * Model (incl. `$fillable`)
+  * Request (incl. `rules()`)
+  * Controller (incl. CrudColumns and CrudFields, basic for now)
 * Language File
 * Route to Backpack CRUD in admin.php
 

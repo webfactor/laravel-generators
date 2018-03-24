@@ -1,12 +1,10 @@
 <?php
 
-namespace Webfactor\Laravel\Generators\Schemas;
+namespace Webfactor\Laravel\Generators\Contracts;
 
-class MigrationField
+abstract class MigrationFieldAbstract implements FieldTypeInterface
 {
     private $name;
-
-    private $type;
 
     private $nullable = false;
 
@@ -16,20 +14,12 @@ class MigrationField
 
     private $foreign = null;
 
-    public function __construct(string $field)
+    public function __construct(string $name, array $options = [])
     {
-        $this->parse($field);
-    }
+        $this->name = $name;
 
-    private function parse(string $field)
-    {
-        $params = collect(explode(':', $field));
-
-        $this->name = $params->pull(0);
-        $this->type = $params->pull(1);
-
-        foreach ($params as $param) {
-            $this->fillObject($param);
+        foreach ($options as $option) {
+            $this->fillObject($option);
         }
     }
 
@@ -94,43 +84,9 @@ class MigrationField
         return $this->unique;
     }
 
-    public function makeValidationRule(): string
-    {
-        $rule = 'required';
+    abstract public function getRule(): string;
 
-        switch ($this->getType()) {
+    abstract public function getColumn(): array;
 
-            case 'string':
-                $rule .= '|between:3,255';
-                break;
-
-            case 'integer':
-                $rule .= '|integer';
-                break;
-
-            case 'date':
-                $rule .= '|date';
-                break;
-        }
-
-        return $rule;
-    }
-
-    public function makeColumn()
-    {
-        return [
-            'name' => 'title',
-            'type' => 'text',
-            'label' => 'Title',
-        ];
-    }
-
-    public function makeField()
-    {
-        return [
-            'name'  => 'title',
-            'type'  => 'text',
-            'label' => 'Title',
-        ];
-    }
+    abstract public function getField(): array;
 }

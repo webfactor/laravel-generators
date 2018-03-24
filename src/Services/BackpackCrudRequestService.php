@@ -5,7 +5,6 @@ namespace Webfactor\Laravel\Generators\Services;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
-use Webfactor\Laravel\Generators\Schemas\ValidationRule;
 
 class BackpackCrudRequestService extends ServiceAbstract implements ServiceInterface
 {
@@ -21,8 +20,9 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
 
         $this->addLatestFileToIdeStack();
 
-        $this->setRulesFromSchema();
-        $this->fillRulesInGeneratedRequest();
+        $this->setRules();
+
+        $this->insertRulesInGeneratedRequest();
     }
 
     /**
@@ -34,7 +34,14 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
         return ucfirst($entity);
     }
 
-    private function fillRulesInGeneratedRequest(): void
+    private function setRules(): void
+    {
+        $this->command->schema->getStructure()->each(function ($fieldType) {
+            $this->rules[$fieldType->getName()] = $fieldType->getRule();
+        });
+    }
+
+    private function insertRulesInGeneratedRequest(): void
     {
         $requestFile = end($this->command->filesToBeOpened);
 
@@ -43,26 +50,11 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
         $this->filesystem->put($requestFile, $request);
     }
 
-    private function setRulesFromSchema(): void
-    {
-        $this->command->schema->getStructure()->each(function ($field) {
-            array_push($this->rules, new ValidationRule($field));
-        });
-    }
-
     /**
      * @return string
      */
     private function getRulesAsString(): string
     {
-        $rulesArray = [];
-
-        foreach ($this->rules as $validationRule) {
-            if ($ruleString = $validationRule->generateRuleString()) {
-                $rulesArray[$validationRule->getField()] = $ruleString;
-            }
-        }
-
-        return ShortSyntaxArray::parse($rulesArray);
+        return ShortSyntaxArray::parse($this->rules);
     }
 }

@@ -1,12 +1,10 @@
 <?php
 
-namespace Webfactor\Laravel\Generators\Schemas;
+namespace Webfactor\Laravel\Generators\Contracts;
 
-class MigrationField
+abstract class MigrationFieldAbstract implements FieldTypeInterface
 {
     private $name;
-
-    private $type;
 
     private $nullable = false;
 
@@ -16,20 +14,12 @@ class MigrationField
 
     private $foreign = null;
 
-    public function __construct(string $field)
+    public function __construct(string $name, array $options = [])
     {
-        $this->parse($field);
-    }
+        $this->name = $name;
 
-    private function parse(string $field)
-    {
-        $params = collect(explode(':', $field));
-
-        $this->name = $params->pull(0);
-        $this->type = $params->pull(1);
-
-        foreach ($params as $param) {
-            $this->fillObject($param);
+        foreach ($options as $option) {
+            $this->fillObject($option);
         }
     }
 
@@ -93,4 +83,10 @@ class MigrationField
     {
         return $this->unique;
     }
+
+    abstract public function getRule(): string;
+
+    abstract public function getColumn(): array;
+
+    abstract public function getField(): array;
 }

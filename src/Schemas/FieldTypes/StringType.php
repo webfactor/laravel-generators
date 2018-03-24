@@ -6,24 +6,9 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
 
 class StringType extends MigrationFieldAbstract
 {
-    public function getRule(): string
-    {
-        return 'required';
-    }
+    protected $validationRuleType = 'string';
 
-    public function getColumn(): array
-    {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getName(),
-        ];
-    }
+    protected $crudColumnType = 'text';
 
-    public function getField(): array
-    {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getName(),
-        ];
-    }
+    protected $crudFieldType = 'text';
 }

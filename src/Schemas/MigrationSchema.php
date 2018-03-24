@@ -3,7 +3,7 @@
 namespace Webfactor\Laravel\Generators\Schemas;
 
 use Illuminate\Support\Collection;
-use Webfactor\Laravel\Generators\Contracts\FieldTypeInterface;
+use Webfactor\Laravel\Generators\Contracts\MigrationFieldTypeInterface;
 
 class MigrationSchema
 {
@@ -25,23 +25,23 @@ class MigrationSchema
         $name = array_shift($options);
         $type = array_shift($options);
 
-        if ($fieldType = $this->getFieldType($type, $name, $options)) {
-            $this->structure->push($fieldType);
+        if ($migrationFieldType = $this->getMigrationFieldType($type, $name, $options)) {
+            $this->structure->push($migrationFieldType);
         }
     }
 
-    protected function getFieldType($type, $name, $options)
+    protected function getMigrationFieldType($type, $name, $options)
     {
         $typeClass = 'Webfactor\\Laravel\\Generators\\Schemas\\FieldTypes\\' . ucfirst($type) . 'Type';
 
         if (class_exists($typeClass)) {
-            return $this->loadFieldType(new $typeClass($name, $options));
+            return $this->loadMigrationFieldType(new $typeClass($name, $options));
         }
 
         return null;
     }
 
-    private function loadFieldType(FieldTypeInterface $fieldType)
+    private function loadMigrationFieldType(MigrationFieldTypeInterface $fieldType)
     {
         return $fieldType;
     }

@@ -6,24 +6,9 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
 
 class DateType extends MigrationFieldAbstract
 {
-    public function getRule(): string
-    {
-        return 'required';
-    }
+    protected $validationRuleType = 'date';
 
-    public function getColumn(): array
-    {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getName(),
-        ];
-    }
+    protected $crudColumnType = 'date';
 
-    public function getField(): array
-    {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getName(),
-        ];
-    }
+    protected $crudFieldType = 'date';
 }

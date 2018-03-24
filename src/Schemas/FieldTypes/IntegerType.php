@@ -6,24 +6,9 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
 
 class IntegerType extends MigrationFieldAbstract
 {
-    public function getRule(): string
-    {
-        return 'required';
-    }
+    protected $validationRuleType = 'integer';
 
-    public function getColumn(): array
-    {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getName(),
-        ];
-    }
+    protected $crudColumnType = 'number';
 
-    public function getField(): array
-    {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getName(),
-        ];
-    }
+    protected $crudFieldType = 'number';
 }

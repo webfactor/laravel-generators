@@ -2,28 +2,30 @@
 
 namespace Webfactor\Laravel\Generators\Contracts;
 
-abstract class MigrationFieldAbstract implements FieldTypeInterface
+use Webfactor\Laravel\Generators\Traits\CrudColumn;
+use Webfactor\Laravel\Generators\Traits\CrudField;
+use Webfactor\Laravel\Generators\Traits\ValidationRule;
+
+abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
 {
+    use CrudColumn, CrudField, ValidationRule;
+
     private $name;
 
-    private $nullable = false;
+    private $nullable;
 
-    private $unique = false;
-
-    private $default = null;
-
-    private $foreign = null;
+    private $unique;
 
     public function __construct(string $name, array $options = [])
     {
         $this->name = $name;
 
         foreach ($options as $option) {
-            $this->fillObject($option);
+            $this->parseOptions($option);
         }
     }
 
-    private function fillObject(string $param)
+    private function parseOptions(string $param)
     {
         if ($param == 'nullable') {
             return $this->nullable = true;
@@ -31,10 +33,6 @@ abstract class MigrationFieldAbstract implements FieldTypeInterface
 
         if ($param == 'unique') {
             return $this->unique = true;
-        }
-
-        if ($param == 'foreign') {
-            return $this->foreign = true;
         }
 
         if (starts_with($param, 'default(')) {
@@ -53,22 +51,6 @@ abstract class MigrationFieldAbstract implements FieldTypeInterface
     }
 
     /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDefault()
-    {
-        return $this->default;
-    }
-
-    /**
      * @return bool
      */
     public function isNullable()
@@ -83,10 +65,4 @@ abstract class MigrationFieldAbstract implements FieldTypeInterface
     {
         return $this->unique;
     }
-
-    abstract public function getRule(): string;
-
-    abstract public function getColumn(): array;
-
-    abstract public function getField(): array;
 }

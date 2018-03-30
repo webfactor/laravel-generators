@@ -17,6 +17,10 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
             '--schema' => $this->command->option('schema'),
         ]);
 
+        if ($this->command->option('migrate')) {
+            $this->command->call('migrate');
+        }
+
         $this->addLatestFileToIdeStack();
     }
 

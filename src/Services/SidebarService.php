@@ -7,19 +7,19 @@ use Webfactor\Laravel\Generators\Commands\MakeEntity;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
-class RouteService extends ServiceAbstract implements ServiceInterface
+class SidebarService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'routes/backpack';
+    protected $relativeToBasePath = 'resources/views/vendor/backpack/base/inc';
 
-    protected $fileName = 'custom.php';
+    protected $fileName = 'sidebar_content.blade.php';
 
-    private $routeFile;
+    private $sidebarFile;
 
     public function call()
     {
-        $this->routeFile = $this->getFilePath();
+        $this->sidebarFile = $this->getFilePath();
 
-        if ($this->filesystem->exists($this->routeFile)) {
+        if ($this->filesystem->exists($this->sidebarFile)) {
             $this->writeFile();
             $this->addLatestFileToIdeStack();
         }
@@ -30,9 +30,9 @@ class RouteService extends ServiceAbstract implements ServiceInterface
         return strtolower($this->command->entity);
     }
 
-    private function getControllerName(): string
+    private function getLanguageName(): string
     {
-        return ucfirst($this->command->entity) . 'CrudController';
+        return snake_case($this->command->entity);
     }
 
     /**
@@ -44,7 +44,7 @@ class RouteService extends ServiceAbstract implements ServiceInterface
      */
     private function writeFile()
     {
-        $this->filesystem->append($this->routeFile, $this->getRouteString());
+        $this->filesystem->append($this->sidebarFile, $this->getRouteString());
     }
 
     private function getFilePath()
@@ -54,6 +54,13 @@ class RouteService extends ServiceAbstract implements ServiceInterface
 
     private function getRouteString()
     {
-        return "\r\n" . 'CRUD::resource(\'' . $this->getRouteName() . '\', \'' . $this->getControllerName() . '\');';
+        return <<<FILE
+
+<li>
+    <a href="{{ backpack_url('{$this->getRouteName()}') }}">
+        <i class="fa fa-question"></i><span>{{ trans('models.{$this->getLanguageName()}.plural') }}</span>
+    </a>
+</li>
+FILE;
     }
 }

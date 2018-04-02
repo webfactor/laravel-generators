@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Finder\SplFileInfo;
 use Webfactor\Laravel\Generators\MakeServices;
 use Webfactor\Laravel\Generators\Schemas\MigrationSchema;
+use Webfactor\Laravel\Generators\Schemas\NamingSchema;
 
 class MakeEntity extends Command
 {
@@ -29,7 +30,14 @@ class MakeEntity extends Command
      *
      * @var MigrationSchema
      */
-    public $schema;
+    public $migration;
+
+    /**
+     * The naming schema object.
+     *
+     * @var NamingSchema
+     */
+    public $naming;
 
     /**
      * The name and signature of the console command.
@@ -53,7 +61,10 @@ class MakeEntity extends Command
     public function handle()
     {
         $this->entity = $this->argument('entity');
-        $this->schema = new MigrationSchema($this->option('schema'));
+
+        $this->naming = new NamingSchema($this->entity);
+        dd($this->naming);
+        $this->migration = new MigrationSchema($this->option('schema'));
 
         (new MakeServices($this))->call();
     }

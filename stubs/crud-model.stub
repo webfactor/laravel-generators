@@ -1,13 +1,15 @@
 <?php
 
-namespace DummyNamespace;
+namespace __namespace__;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+__imports__
 
 class DummyClass extends Model
 {
     use CrudTrait;
+    __traits__
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +36,8 @@ class DummyClass extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    __relations__
 
     /*
     |--------------------------------------------------------------------------

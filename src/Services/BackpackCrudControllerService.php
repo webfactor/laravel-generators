@@ -36,14 +36,14 @@ class BackpackCrudControllerService extends ServiceAbstract implements ServiceIn
 
     private function setFields(): void
     {
-        $this->command->schema->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
+        $this->command->migration->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
             array_push($this->fields, $migrationField->getCrudField());
         });
     }
 
     private function setColumns(): void
     {
-        $this->command->schema->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
+        $this->command->migration->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
             array_push($this->columns, $migrationField->getCrudColumn());
         });
     }

@@ -37,7 +37,7 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
 
     private function setRules(): void
     {
-        $this->command->schema->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
+        $this->command->migration->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
             $this->rules[$migrationField->getName()] = $migrationField->getValidationRule();
         });
     }

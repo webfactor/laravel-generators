@@ -45,7 +45,7 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
      */
     private function getFillableFromSchema()
     {
-        $this->command->schema->getStructure()->each(function ($field) {
+        $this->command->migration->getStructure()->each(function ($field) {
             $this->fillable .= "'" . $field->getName() . "',\n";
         });
 

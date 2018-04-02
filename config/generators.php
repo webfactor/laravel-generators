@@ -25,4 +25,11 @@ return [
     'ides'     => [
         'pstorm' => Webfactor\Laravel\Generators\Recipes\PhpStormOpener::class,
     ],
+
+    'naming' => [
+        'migration' => \Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
+        'model' => \Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
+        'request' => \Webfactor\Laravel\Generators\Schemas\Naming\Request::class,
+        'controller' => \Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,
+    ]
 ];

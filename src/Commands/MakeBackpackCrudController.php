@@ -32,7 +32,7 @@ class MakeBackpackCrudController extends GeneratorCommand
      *
      * @var string
      */
-    protected $type = 'Controller';
+    protected $type = 'CrudController';
 
     /**
      * Get the destination class path.

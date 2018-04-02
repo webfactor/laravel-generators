@@ -6,7 +6,7 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
 
 class IntegerType extends MigrationFieldAbstract
 {
-    protected $validationRuleType = 'integer';
+    protected $validationRule = 'required|integer';
 
     protected $crudColumnType = 'number';
 

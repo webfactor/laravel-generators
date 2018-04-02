@@ -6,7 +6,7 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
 
 class TextType extends MigrationFieldAbstract
 {
-    protected $validationRuleType = 'text';
+    protected $validationRule = 'required';
 
     protected $crudColumnType = 'text';
 

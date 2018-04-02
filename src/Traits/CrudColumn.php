@@ -29,4 +29,11 @@ trait CrudColumn
             $this->column[$key] = $option;
         }
     }
+
+    private function setCrudColumnOptions(string $crudColumnOptions)
+    {
+        $crudColumnOptions = explode(':', $crudColumnOptions);
+
+        $this->crudColumnType = array_shift($crudColumnOptions);
+    }
 }

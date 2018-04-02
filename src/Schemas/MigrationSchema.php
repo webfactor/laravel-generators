@@ -7,30 +7,36 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldTypeInterface;
 
 class MigrationSchema
 {
-    protected $structure;
+    protected $structure = [];
 
     public function __construct(string $schema)
     {
-        $this->structure = collect();
-
-        foreach (explode(',', $schema) as $field) {
-            $this->setMigrationField($field);
-        }
+        $this->extractPartsFromSchema(explode(',', $schema));
     }
 
-    private function setMigrationField($field)
+    private function extractPartsFromSchema(array $schema)
     {
-        $options = explode(':', $field);
-
-        $name = array_shift($options);
-        $type = array_shift($options);
-
-        if ($migrationFieldType = $this->getMigrationFieldType($type, $name, $options)) {
-            $this->structure->push($migrationFieldType);
+        foreach ($schema as $parts) {
+            $this->extractStructure(explode(';', $parts));
         }
     }
 
-    protected function getMigrationFieldType($type, $name, $options)
+    private function extractStructure(array $options)
+    {
+        $this->setMigrationField(explode(':', array_shift($options)), $options);
+    }
+
+    private function setMigrationField(array $fieldOptions, array $crudOptions)
+    {
+        $name = array_shift($fieldOptions);
+        $type = array_shift($fieldOptions);
+
+        if ($migrationFieldType = $this->getMigrationFieldType($type, $name, compact('fieldOptions', 'crudOptions'))) {
+            array_push($this->structure, $migrationFieldType);
+        }
+    }
+
+    protected function getMigrationFieldType($type, $name, $options): ?MigrationFieldTypeInterface
     {
         $typeClass = 'Webfactor\\Laravel\\Generators\\Schemas\\FieldTypes\\' . ucfirst($type) . 'Type';
 
@@ -41,7 +47,7 @@ class MigrationSchema
         return null;
     }
 
-    private function loadMigrationFieldType(MigrationFieldTypeInterface $fieldType)
+    private function loadMigrationFieldType(MigrationFieldTypeInterface $fieldType): MigrationFieldTypeInterface
     {
         return $fieldType;
     }
@@ -51,6 +57,6 @@ class MigrationSchema
      */
     public function getStructure(): Collection
     {
-        return $this->structure;
+        return collect($this->structure);
     }
 }

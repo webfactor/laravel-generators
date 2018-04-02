@@ -6,7 +6,7 @@ use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
 
 class BooleanType extends MigrationFieldAbstract
 {
-    protected $validationRuleType = 'boolean';
+    protected $validationRule = 'required|boolean';
 
     protected $crudColumnType = 'boolean';
 

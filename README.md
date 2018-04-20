@@ -17,7 +17,7 @@ This is a package developed by us for internal use. It is supposed to help us du
 This package is indended to be used only for development, not for production. Because of that we recommend to use `require-dev`:
 
 ``` bash
-composer require-dev webfactor/laravel-generators
+composer require --dev webfactor/laravel-generators
 ```
 
 ## Usage

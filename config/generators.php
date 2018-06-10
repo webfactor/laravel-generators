@@ -7,7 +7,7 @@ return [
      */
     'services' => [
         Webfactor\Laravel\Generators\Services\MigrationService::class,
-        Webfactor\Laravel\Generators\Services\LanguageService::class,
+        /*Webfactor\Laravel\Generators\Services\LanguageService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudRequestService::class,
@@ -15,7 +15,7 @@ return [
         Webfactor\Laravel\Generators\Services\SeederService::class,
         Webfactor\Laravel\Generators\Services\RouteService::class,
         Webfactor\Laravel\Generators\Services\SidebarService::class,
-        Webfactor\Laravel\Generators\Services\OpenIdeService::class,
+        Webfactor\Laravel\Generators\Services\OpenIdeService::class,*/
     ],
 
     /*
@@ -27,9 +27,9 @@ return [
     ],
 
     'naming' => [
-        'migration' => \Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
-        'model' => \Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
-        'request' => \Webfactor\Laravel\Generators\Schemas\Naming\Request::class,
-        'controller' => \Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,
+        Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
+        /*Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
+        Webfactor\Laravel\Generators\Schemas\Naming\CrudRequest::class,
+        Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,*/
     ]
 ];

@@ -4,6 +4,8 @@ namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
 class CrudModel
 {
+    public $key = 'crudModel';
+
     private $namespace = 'App\\Models';
 
     private $directory = 'app/models/';

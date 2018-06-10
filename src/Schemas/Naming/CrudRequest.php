@@ -2,11 +2,13 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
-class Request
+class CrudRequest
 {
+    public $key = 'crudRequest';
+
     private $namespace = 'App\\Http\\Requests\\Admin';
 
-    private $directory = 'app/Http/Requests/Admin';
+    private $directory = 'app/Http/Requests/Admin/';
 
     private $className;
 

@@ -4,6 +4,10 @@ namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
 class Migration
 {
+    public $key = 'migration';
+
+    private $directory = 'database/migrations/';
+
     private $className;
 
     private $tableName;

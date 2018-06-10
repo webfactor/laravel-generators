@@ -4,9 +4,11 @@ namespace Webfactor\Laravel\Generators\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\SplFileInfo;
+use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\MakeServices;
 use Webfactor\Laravel\Generators\Schemas\MigrationSchema;
 use Webfactor\Laravel\Generators\Schemas\NamingSchema;
+use Webfactor\Laravel\Generators\ServiceHandler;
 
 class MakeEntity extends Command
 {
@@ -44,7 +46,7 @@ class MakeEntity extends Command
      *
      * @var string
      */
-    protected $signature = 'make:entity {entity} {--schema="name:string"} {--migrate} {--ide=}';
+    protected $signature = 'make:entity {entity} {--schema=name:string} {--migrate} {--ide=}';
 
     /**
      * The console command description.
@@ -61,12 +63,19 @@ class MakeEntity extends Command
     public function handle()
     {
         $this->entity = $this->argument('entity');
-
         $this->naming = new NamingSchema($this->entity);
-        dd($this->naming);
-        $this->migration = new MigrationSchema($this->option('schema'));
 
-        (new MakeServices($this))->call();
+        $this->migration = new MigrationSchema($this->option('schema'));
+        dd($this->option('schema'), $this->migration);
+
+        foreach (config('webfactor.generators.services', []) as $serviceClass) {
+            $this->excecuteService(new $serviceClass($this));
+        }
+    }
+
+    private function excecuteService(ServiceInterface $service)
+    {
+        $service->call();
     }
 
     /**

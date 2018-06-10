@@ -11,22 +11,38 @@ class MigrationSchema
 
     public function __construct(string $schema)
     {
-        $this->extractPartsFromSchema(explode(',', $schema));
+        $this->extractMigrationFieldFromSchema(explode(',', $schema));
     }
 
-    private function extractPartsFromSchema(array $schema)
+    private function extractMigrationFieldFromSchema(array $schema)
     {
-        foreach ($schema as $parts) {
-            $this->extractStructure(explode(';', $parts));
+        foreach ($schema as $migrationFields) {
+            $this->extractStructure(explode(';', $migrationFields));
         }
     }
 
     private function extractStructure(array $options)
     {
-        $this->setMigrationField(explode(':', array_shift($options)), $options);
+
+        $this->setMigrationField($this->getFieldOptions(array_shift($options)), $options);
     }
 
-    private function setMigrationField(array $fieldOptions, array $crudOptions)
+    private function getFieldOptions(string $fieldOptions): array
+    {
+        dd($this->getContentOfParenthesis($fieldOptions));
+    }
+
+    private function getContentOfParenthesis(string $string): string
+    {
+        $pattern = '/\(([^\(\)]*)\)/m';
+        $pattern = '/([^\(\)]*)\(/m';
+
+        preg_match_all($pattern, $string, $matches);
+
+        return $matches[1][0] ?? '';
+    }
+
+    private function setMigrationField( $fieldOptions, array $crudOptions)
     {
         $name = array_shift($fieldOptions);
         $type = array_shift($fieldOptions);
@@ -38,7 +54,7 @@ class MigrationSchema
 
     protected function getMigrationFieldType($type, $name, $options): ?MigrationFieldTypeInterface
     {
-        $typeClass = 'Webfactor\\Laravel\\Generators\\Schemas\\FieldTypes\\' . ucfirst($type) . 'Type';
+        $typeClass = '\\Webfactor\\Laravel\\Generators\\Schemas\\FieldTypes\\' . ucfirst($type) . 'Type';
 
         if (class_exists($typeClass)) {
             return $this->loadMigrationFieldType(new $typeClass($name, $options));

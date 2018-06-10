@@ -4,9 +4,11 @@ namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
 class CrudController
 {
+    public $key = 'crudController';
+
     private $namespace = 'App\\Http\\Controllers\\Admin';
 
-    private $directory = 'app/Http/Controllers/Admin';
+    private $directory = 'app/Http/Controllers/Admin/';
 
     private $className;
 

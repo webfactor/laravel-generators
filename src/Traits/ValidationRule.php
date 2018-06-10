@@ -10,7 +10,7 @@ trait ValidationRule
 
     public function getValidationRule(): string
     {
-        return 'require|' . $this->validationRuleType;
+        return 'required|' . $this->validationRuleType;
 
         /*if ($this->crudFieldOptions) {
             $this->addCrudFieldOptions();

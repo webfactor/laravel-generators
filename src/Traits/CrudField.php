@@ -32,8 +32,11 @@ trait CrudField
 
     private function setCrudFieldOptions(string $crudFieldOptions)
     {
-        $crudFieldOptions = explode(':', $crudFieldOptions);
+        $crudFieldOptions = explode('|', $crudFieldOptions);
 
-        $this->crudFieldType = array_shift($crudFieldOptions);
+        foreach ($crudFieldOptions as $crudFieldOption) {
+            $option = explode(':', $crudFieldOption);
+            $this->crudFieldOptions[$option[0]] = $option[1];
+        }
     }
 }

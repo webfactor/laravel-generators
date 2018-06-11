@@ -66,7 +66,7 @@ class MakeEntity extends Command
         $this->naming = new NamingSchema($this->entity);
 
         $this->migration = new MigrationSchema($this->option('schema'));
-        dd($this->option('schema'), $this->migration);
+        dd($this->migration->getStructure());
 
         foreach (config('webfactor.generators.services', []) as $serviceClass) {
             $this->excecuteService(new $serviceClass($this));

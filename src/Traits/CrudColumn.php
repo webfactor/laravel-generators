@@ -32,8 +32,11 @@ trait CrudColumn
 
     private function setCrudColumnOptions(string $crudColumnOptions)
     {
-        $crudColumnOptions = explode(':', $crudColumnOptions);
+        $crudColumnOptions = explode('|', $crudColumnOptions);
 
-        $this->crudColumnType = array_shift($crudColumnOptions);
+        foreach ($crudColumnOptions as $crudColumnOption) {
+            $option = explode(':', $crudColumnOption);
+            $this->$crudColumnOption[$option[0]] = $option[1];
+        }
     }
 }

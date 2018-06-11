@@ -16,24 +16,17 @@ abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
 
     private $unique;
 
-    public function __construct(string $name, array $options = [])
+    public function __construct(array $fieldOptions, array $crudOptions = [])
     {
-        $this->name = $name;
+        $this->name = $fieldOptions['name'];
 
-        $this->parseOptions([$this, 'parseFieldOption'], data_get($options, 'fieldOptions', []));
-        $this->parseOptions([$this, 'parseCrudOption'], data_get($options, 'crudOptions', []));
+        $this->parseFieldOptions($fieldOptions['options']);
+        $this->parseCrudOptions($crudOptions);
     }
 
-    private function parseOptions(callable $method, array $options)
+    private function parseFieldOptions(string $option)
     {
-        foreach ($options as $option) {
-            call_user_func($method, $option);
-        }
-    }
-
-    private function parseFieldOption(string $option)
-    {
-        if ($option == 'nullable') {
+        /*if ($option == 'nullable') {
             return $this->nullable = true;
         }
 
@@ -45,12 +38,19 @@ abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
             preg_match('/\((.*)\)/', $option, $match);
 
             return $this->default = $match[1];
+        }*/
+    }
+
+    private function parseCrudOptions(array $crudOptions)
+    {
+        foreach ($crudOptions as $crudOption) {
+            $this->parseCrudOption($crudOption);
         }
     }
 
     private function parseCrudOption(string $option)
     {
-        preg_match('/^(field|column|rule):(.*)/', $option, $match);
+        preg_match('/^(field|column|rule)\((.*)\)/', $option, $match);
 
         if ($match[1] == 'rule') {
             $this->setValidationRule($match[2]);

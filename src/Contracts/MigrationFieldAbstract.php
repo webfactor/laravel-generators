@@ -2,6 +2,7 @@
 
 namespace Webfactor\Laravel\Generators\Contracts;
 
+use Webfactor\Laravel\Generators\Helper\RegexParser;
 use Webfactor\Laravel\Generators\Traits\CrudColumn;
 use Webfactor\Laravel\Generators\Traits\CrudField;
 use Webfactor\Laravel\Generators\Traits\ValidationRule;
@@ -12,33 +13,23 @@ abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
 
     private $name;
 
-    private $nullable;
-
-    private $unique;
+    private $availableMethods = [
+        'field' => 'setCrudFieldOptions',
+        'column' => 'setCrudColumnOptions',
+        'rule' => 'setValidationRule',
+    ];
 
     public function __construct(array $fieldOptions, array $crudOptions = [])
     {
-        $this->name = $fieldOptions['name'];
+        $this->name = $this->crudField['name'] = $this->crudColumn['name'] = $fieldOptions['name'];
 
-        $this->parseFieldOptions($fieldOptions['options']);
+        //$this->parseFieldOptions($fieldOptions['options']);
         $this->parseCrudOptions($crudOptions);
     }
 
-    private function parseFieldOptions(string $option)
+    private function parseFieldOptions(string $fieldOptions)
     {
-        /*if ($option == 'nullable') {
-            return $this->nullable = true;
-        }
-
-        if ($option == 'unique') {
-            return $this->unique = true;
-        }
-
-        if (starts_with($option, 'default(')) {
-            preg_match('/\((.*)\)/', $option, $match);
-
-            return $this->default = $match[1];
-        }*/
+        // TODO: define options
     }
 
     private function parseCrudOptions(array $crudOptions)
@@ -48,26 +39,12 @@ abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
         }
     }
 
-    private function parseCrudOption(string $option)
+    private function parseCrudOption(string $crudOption)
     {
-        preg_match('/^(field|column|rule)\((.*)\)/', $option, $match);
+        ['left' => $left, 'inside' => $inside] = RegexParser::parseParenthesis($crudOption);
 
-        if ($match[1] == 'rule') {
-            $this->setValidationRule($match[2]);
-
-            return;
-        }
-
-        if ($match[1] == 'field') {
-            $this->setCrudFieldOptions($match[2]);
-
-            return;
-        }
-
-        if ($match[1] == 'column') {
-            $this->setCrudColumnOptions($match[2]);
-
-            return;
+        if (key_exists($left, $this->availableMethods)) {
+            call_user_func([$this, $this->availableMethods[$left]], $inside);
         }
     }
 
@@ -77,21 +54,5 @@ abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNullable()
-    {
-        return $this->nullable;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isUnique(): bool
-    {
-        return $this->unique;
     }
 }

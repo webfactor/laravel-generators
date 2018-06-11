@@ -8,7 +8,11 @@ class BooleanType extends MigrationFieldAbstract
 {
     protected $validationRule = 'required|boolean';
 
-    protected $crudColumnType = 'boolean';
+    protected $crudColumn = [
+        'type' => 'boolean',
+    ];
 
-    protected $crudFieldType = 'boolean';
+    protected $crudField = [
+        'type' => 'boolean',
+    ];
 }

@@ -8,7 +8,11 @@ class JsonType extends MigrationFieldAbstract
 {
     protected $validationRule = 'required';
 
-    protected $crudColumnType = 'text';
+    protected $crudColumn = [
+        'type' => 'text',
+    ];
 
-    protected $crudFieldType = 'summernote';
+    protected $crudField = [
+        'type' => 'summernote',
+    ];
 }

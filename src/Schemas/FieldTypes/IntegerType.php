@@ -8,7 +8,11 @@ class IntegerType extends MigrationFieldAbstract
 {
     protected $validationRule = 'required|integer';
 
-    protected $crudColumnType = 'number';
+    protected $crudColumn = [
+        'type' => 'number',
+    ];
 
-    protected $crudFieldType = 'number';
+    protected $crudField = [
+        'type' => 'number',
+    ];
 }

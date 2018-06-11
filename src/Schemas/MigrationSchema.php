@@ -28,19 +28,18 @@ class MigrationSchema
         return explode(',', $schema);
     }
 
-    private function parseMigrationFields(array $migrationFields)
+    private function parseMigrationFields(array $migrationFields): void
     {
         foreach ($migrationFields as $migrationField) {
             $this->parseMigrationField($migrationField);
         }
     }
 
-    private function parseMigrationField(string $migrationField)
+    private function parseMigrationField(string $migrationField): void
     {
         $crudOptions = explode(';', $migrationField);
 
-        $migrationPart = $this->parseMigration(array_shift($crudOptions));
-        $this->setMigrationField($migrationPart, $crudOptions);
+        $this->setMigrationField($this->parseMigration(array_shift($crudOptions)), $crudOptions);
     }
 
     private function parseMigration(string $migrationString): array
@@ -55,7 +54,7 @@ class MigrationSchema
         ];
     }
 
-    private function setMigrationField(array $fieldOptions, array $crudOptions)
+    private function setMigrationField(array $fieldOptions, array $crudOptions): void
     {
         if ($migrationFieldType = $this->getMigrationFieldType($fieldOptions, $crudOptions)) {
             array_push($this->structure, $migrationFieldType);

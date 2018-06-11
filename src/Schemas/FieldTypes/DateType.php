@@ -8,7 +8,11 @@ class DateType extends MigrationFieldAbstract
 {
     protected $validationRule = 'required|date';
 
-    protected $crudColumnType = 'date';
+    protected $crudColumn = [
+        'type' => 'date',
+    ];
 
-    protected $crudFieldType = 'date';
+    protected $crudField = [
+        'type' => 'date',
+    ];
 }

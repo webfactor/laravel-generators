@@ -8,7 +8,11 @@ class StringType extends MigrationFieldAbstract
 {
     protected $validationRule = 'required';
 
-    protected $crudColumnType = 'text';
+    protected $crudColumn = [
+        'type' => 'text',
+    ];
 
-    protected $crudFieldType = 'text';
+    protected $crudField = [
+        'type' => 'text',
+    ];
 }

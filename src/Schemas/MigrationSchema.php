@@ -4,6 +4,7 @@ namespace Webfactor\Laravel\Generators\Schemas;
 
 use Illuminate\Support\Collection;
 use Webfactor\Laravel\Generators\Contracts\MigrationFieldTypeInterface;
+use Webfactor\Laravel\Generators\Helper\RegexParser;
 
 class MigrationSchema
 {
@@ -11,61 +12,7 @@ class MigrationSchema
 
     public function __construct(string $schema)
     {
-        $this->extractMigrationFieldFromSchema(explode(',', $schema));
-    }
-
-    private function extractMigrationFieldFromSchema(array $schema)
-    {
-        foreach ($schema as $migrationFields) {
-            $this->extractStructure(explode(';', $migrationFields));
-        }
-    }
-
-    private function extractStructure(array $options)
-    {
-
-        $this->setMigrationField($this->getFieldOptions(array_shift($options)), $options);
-    }
-
-    private function getFieldOptions(string $fieldOptions): array
-    {
-        dd($this->getContentOfParenthesis($fieldOptions));
-    }
-
-    private function getContentOfParenthesis(string $string): string
-    {
-        $pattern = '/\(([^\(\)]*)\)/m';
-        $pattern = '/([^\(\)]*)\(/m';
-
-        preg_match_all($pattern, $string, $matches);
-
-        return $matches[1][0] ?? '';
-    }
-
-    private function setMigrationField( $fieldOptions, array $crudOptions)
-    {
-        $name = array_shift($fieldOptions);
-        $type = array_shift($fieldOptions);
-
-        if ($migrationFieldType = $this->getMigrationFieldType($type, $name, compact('fieldOptions', 'crudOptions'))) {
-            array_push($this->structure, $migrationFieldType);
-        }
-    }
-
-    protected function getMigrationFieldType($type, $name, $options): ?MigrationFieldTypeInterface
-    {
-        $typeClass = '\\Webfactor\\Laravel\\Generators\\Schemas\\FieldTypes\\' . ucfirst($type) . 'Type';
-
-        if (class_exists($typeClass)) {
-            return $this->loadMigrationFieldType(new $typeClass($name, $options));
-        }
-
-        return null;
-    }
-
-    private function loadMigrationFieldType(MigrationFieldTypeInterface $fieldType): MigrationFieldTypeInterface
-    {
-        return $fieldType;
+        $this->parseMigrationFields($this->getMigrationFieldsFromSchema($schema));
     }
 
     /**
@@ -74,5 +21,60 @@ class MigrationSchema
     public function getStructure(): Collection
     {
         return collect($this->structure);
+    }
+
+    private function getMigrationFieldsFromSchema(string $schema): array
+    {
+        return explode(',', $schema);
+    }
+
+    private function parseMigrationFields(array $migrationFields)
+    {
+        foreach ($migrationFields as $migrationField) {
+            $this->parseMigrationField($migrationField);
+        }
+    }
+
+    private function parseMigrationField(string $migrationField)
+    {
+        $crudOptions = explode(';', $migrationField);
+
+        $migrationPart = $this->parseMigration(array_shift($crudOptions));
+        $this->setMigrationField($migrationPart, $crudOptions);
+    }
+
+    private function parseMigration(string $migrationString): array
+    {
+        $nameAndType = explode(':', RegexParser::getLeftFromParenthesis($migrationString));
+        $options = RegexParser::getContentOfParenthesis($migrationString);
+
+        return [
+            'name' => $nameAndType[0],
+            'type' => $nameAndType[1],
+            'options' => $options,
+        ];
+    }
+
+    private function setMigrationField(array $fieldOptions, array $crudOptions)
+    {
+        if ($migrationFieldType = $this->getMigrationFieldType($fieldOptions, $crudOptions)) {
+            array_push($this->structure, $migrationFieldType);
+        }
+    }
+
+    protected function getMigrationFieldType(array $fieldOptions, array $crudOptions): ?MigrationFieldTypeInterface
+    {
+        $typeClass = config('webfactor.generators.fieldTypes.'.$fieldOptions['type']);
+
+        if (class_exists($typeClass)) {
+            return $this->loadMigrationFieldType(new $typeClass($fieldOptions, $crudOptions));
+        }
+
+        return null;
+    }
+
+    private function loadMigrationFieldType(MigrationFieldTypeInterface $fieldType): MigrationFieldTypeInterface
+    {
+        return $fieldType;
     }
 }

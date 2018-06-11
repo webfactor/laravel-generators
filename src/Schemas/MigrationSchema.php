@@ -45,13 +45,13 @@ class MigrationSchema
 
     private function parseMigration(string $migrationString): array
     {
-        $nameAndType = explode(':', RegexParser::getLeftFromParenthesis($migrationString));
-        $options = RegexParser::getContentOfParenthesis($migrationString);
+        ['left' => $left, 'inside' => $inside] = RegexParser::parseParenthesis($migrationString);
+        [$name, $type] = explode(':', $left);
 
         return [
-            'name' => $nameAndType[0],
-            'type' => $nameAndType[1],
-            'options' => $options,
+            'name' => $name,
+            'type' => $type,
+            'options' => $inside,
         ];
     }
 

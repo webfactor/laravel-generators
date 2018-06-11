@@ -4,19 +4,13 @@ namespace Webfactor\Laravel\Generators\Helper;
 
 class RegexParser
 {
-    public static function getLeftFromParenthesis($string)
+    public static function parseParenthesis(string $string): array
     {
-        $firstPart = explode('(', $string);
+        preg_match('/^(.*)\((.*)\)/', $string, $match);
 
-        return $firstPart[0];
-    }
-
-    public static function getContentOfParenthesis($string)
-    {
-        $pattern = '/\(([^\(\)]*)\)/m';
-
-        preg_match_all($pattern, $string, $matches);
-
-        return $matches[1][0] ?? '';
+        return [
+            'left' => $match[1],
+            'inside' => $match[2],
+        ];
     }
 }

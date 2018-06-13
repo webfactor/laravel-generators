@@ -26,7 +26,7 @@ composer require --dev webfactor/laravel-generators
 php artisan make:entity {entity_name} {--schema=} {--ide=}
 ```
 
-`--schema` currently uses syntax from [Laravel 5 Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended)
+`--schema` currently uses syntax from [Laravel 5 Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) (this will be slightly changed in upcoming v3.0 to provide an extended functionality)
 
 Use *singular* for entity. This will automatically create (while respecting our internal naming conventions):
 

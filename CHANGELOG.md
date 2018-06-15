@@ -24,7 +24,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## 2.0.0 - 2018-03-23
 
 ### Added
-- `LanguageService` generates models.php translation file (if not exists) and fill singular/plural translation
+- `LanguageFileService` generates models.php translation file (if not exists) and fill singular/plural translation
 - `OpenIdeService` opens all generated file with PhpStorm if command is called with `--ide={ide}`
 - `RouteService` adds Backpack Crud route to admin.php
 

@@ -6,7 +6,7 @@ use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
 
-class LanguageService extends ServiceAbstract implements ServiceInterface
+class LanguageFileService extends ServiceAbstract implements ServiceInterface
 {
     private $languageFile;
 

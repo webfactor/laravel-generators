@@ -7,7 +7,7 @@ return [
      */
     'services' => [
         Webfactor\Laravel\Generators\Services\MigrationService::class,
-        /*Webfactor\Laravel\Generators\Services\LanguageService::class,
+        /*Webfactor\Laravel\Generators\Services\LanguageFileService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudRequestService::class,

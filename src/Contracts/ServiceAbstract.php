@@ -22,7 +22,6 @@ abstract class ServiceAbstract
     {
         $this->command = $command;
         $this->filesystem = new Filesystem();
-        $this->command->naming[$this->key] = new $this->naming($this->command->entity);
     }
 
     protected function addLatestFileToIdeStack()

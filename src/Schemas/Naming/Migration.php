@@ -2,70 +2,45 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
-class Migration
+use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
+
+class Migration extends NamingAbstract
 {
-    public $key = 'migration';
+    /**
+     * Relative path to database
+     * @var string
+     */
+    protected $path = 'migrations';
 
-    private $directory = 'database/migrations/';
-
-    private $className;
-
-    private $tableName;
-
-    private $fileName;
-
-    public function __construct(string $entity)
+    /**
+     * @return string
+     */
+    public function getClassName(): string
     {
-        $this->setClassName($entity);
-        $this->setTableName($entity);
-        $this->setFileName();
+        return 'Create' . ucfirst(str_plural($this->entity)) . 'Table';
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getClassName()
+    public function getTableName(): string
     {
-        return $this->className;
+        return snake_case(str_plural($this->entity));
     }
 
     /**
-     * @param string $entity
+     * @return string
      */
-    public function setClassName(string $entity): void
+    public function getFileName(): string
     {
-        $this->className = 'Create' . ucfirst(str_plural($entity)) . 'Table';
+        return snake_case($this->getClassName());
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTableName()
+    public function getPath(): string
     {
-        return $this->tableName;
-    }
-
-    /**
-     * @param string $entity
-     */
-    public function setTableName(string $entity): void
-    {
-        $this->tableName = snake_case(str_plural($entity));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * @param mixed $fileName
-     */
-    public function setFileName(): void
-    {
-        $this->fileName = snake_case($this->getClassName());
+        return database_path($this->path);
     }
 }

@@ -26,10 +26,10 @@ return [
     ],
 
     'naming' => [
-        Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
-        /*Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
-        Webfactor\Laravel\Generators\Schemas\Naming\CrudRequest::class,
-        Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,*/
+        'migration' => Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
+        'crudModel' => Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
+        'crudRequest' => Webfactor\Laravel\Generators\Schemas\Naming\CrudRequest::class,
+        'crudController' => Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,
     ],
 
     'fieldTypes' => [

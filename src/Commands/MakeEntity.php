@@ -14,6 +14,20 @@ use Webfactor\Laravel\Generators\Services\OpenIdeService;
 class MakeEntity extends Command
 {
     /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'make:entity {entity} {--schema=name:string} {--migrate} {--ide=}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Make Entity';
+
+    /**
      * Paths to files which should automatically be opened in IDE if the
      * option --ide is set (and IDE capable).
      *
@@ -38,23 +52,9 @@ class MakeEntity extends Command
     /**
      * The naming schema object.
      *
-     * @var NamingSchema
+     * @var array
      */
-    public $naming;
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'make:entity {entity} {--schema=name:string} {--migrate} {--ide=}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Make Entity';
+    public $naming = [];
 
     /**
      * Execute the console command.
@@ -64,14 +64,40 @@ class MakeEntity extends Command
     public function handle()
     {
         $this->entity = $this->argument('entity');
-        //$this->naming = new NamingSchema($this->entity);
+
+        $this->loadSchema();
+        $this->loadNaming();
+        dd($this->naming['crudModel']->getFile());
+        $this->loadSerivces();
+
+    }
+
+    private function loadSchema()
+    {
         $this->migration = new MigrationSchema($this->option('schema'));
+    }
 
-        $serviceClassesToBeExecuted = array_push(config('webfactor.generators.services', []), OpenIdeService::class);
+    private function loadNaming()
+    {
+        foreach (config('webfactor.generators.naming') as $key => $naming) {
+            $namingObject = new $naming($this->entity);
+            $this->naming[$key] = $namingObject;
+        }
+    }
 
-        foreach ($serviceClassesToBeExecuted as $serviceClass) {
+    private function loadSerivces()
+    {
+        foreach ($this->getServicesToBeExecuted() as $serviceClass) {
             $this->executeService(new $serviceClass($this));
         }
+    }
+
+    private function getServicesToBeExecuted(): array
+    {
+        $serviceClassesToBeExecuted = config('webfactor.generators.services', []);
+        array_push($serviceClassesToBeExecuted, OpenIdeService::class);
+
+        return $serviceClassesToBeExecuted;
     }
 
     private function executeService(ServiceInterface $service)

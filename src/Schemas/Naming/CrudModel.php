@@ -2,69 +2,51 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
-class CrudModel
+use Illuminate\Console\DetectsApplicationNamespace;
+use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
+
+class CrudModel extends NamingAbstract
 {
-    public $key = 'crudModel';
-
-    private $namespace = 'App\\Models';
-
-    private $directory = 'app/models/';
-
-    private $className;
-
-    private $fileName;
-
-    public function __construct(string $entity)
-    {
-        $this->setClassName($entity);
-        $this->setFileName();
-    }
+    use DetectsApplicationNamespace;
 
     /**
-     * @return mixed
+     * Relative path to app
+     * @var string
      */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
+    protected $path = 'Models';
+
+    protected $namespace = 'Models\\';
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getClassName()
+    public function getNamespace(): string
     {
-        return $this->className;
-    }
-
-    /**
-     * @param string $entity
-     */
-    public function setClassName(string $entity): void
-    {
-        $this->className = ucfirst($entity);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * @param mixed $fileName
-     */
-    public function setFileName(): void
-    {
-        $this->fileName = $this->getClassName() . '.php';
+        return $this->getAppNamespace() . $this->namespace;
     }
 
     /**
      * @return string
      */
-    public function getDirectory(): string
+    public function getClassName(): string
     {
-        return $this->directory;
+        return ucfirst($this->entity);
     }
+
+    /**
+     * @return string
+     */
+    public function getFileName(): string
+    {
+        return $this->getClassName() . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return app_path($this->path);
+    }
+
 }

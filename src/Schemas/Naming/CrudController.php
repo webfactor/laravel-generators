@@ -2,69 +2,47 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
-class CrudController
+use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
+
+class CrudController extends NamingAbstract
 {
-    public $key = 'crudController';
+    /**
+     * Relative path to app
+     * @var string
+     */
+    protected $path = 'Http/Controllers/Admin';
 
-    private $namespace = 'App\\Http\\Controllers\\Admin';
-
-    private $directory = 'app/Http/Controllers/Admin/';
-
-    private $className;
-
-    private $fileName;
-
-    public function __construct(string $entity)
-    {
-        $this->setClassName($entity);
-        $this->setFileName();
-    }
+    protected $namespace = 'Http\\Controllers\\Admin\\';
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getNamespace()
+    public function getNamespace(): string
     {
-        return $this->namespace;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClassName()
-    {
-        return $this->className;
-    }
-
-    /**
-     * @param string $entity
-     */
-    public function setClassName(string $entity): void
-    {
-        $this->className = ucfirst($entity) . 'CrudController';
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * @param mixed $fileName
-     */
-    public function setFileName(): void
-    {
-        $this->fileName = $this->getClassName() . '.php';
+        return $this->getAppNamespace() . $this->namespace;
     }
 
     /**
      * @return string
      */
-    public function getDirectory(): string
+    public function getClassName(): string
     {
-        return $this->directory;
+        return ucfirst($this->entity) . 'CrudController';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName(): string
+    {
+        return $this->getClassName() . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return app_path($this->path);
     }
 }

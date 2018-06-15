@@ -6,11 +6,13 @@ class RegexParser
 {
     public static function parseParenthesis(string $string): array
     {
-        preg_match('/^(.*)\((.*)\)/', $string, $match);
+        if (str_contains('(', $string) && str_contains(')', $string)) {
+            preg_match('/(.*)(\((.*)\))/', $string, $match);
+        }
 
         return [
-            'left' => $match[1],
-            'inside' => $match[2],
+            'left' => $match[1] ?? $string,
+            'inside' => $match[2] ?? '',
         ];
     }
 }

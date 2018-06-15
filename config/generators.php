@@ -14,8 +14,7 @@ return [
         Webfactor\Laravel\Generators\Services\FactoryService::class,
         Webfactor\Laravel\Generators\Services\SeederService::class,
         Webfactor\Laravel\Generators\Services\RouteService::class,
-        Webfactor\Laravel\Generators\Services\SidebarService::class,
-        Webfactor\Laravel\Generators\Services\OpenIdeService::class,*/
+        Webfactor\Laravel\Generators\Services\SidebarService::class,*/
     ],
 
     /*

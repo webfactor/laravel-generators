@@ -9,6 +9,7 @@ use Webfactor\Laravel\Generators\MakeServices;
 use Webfactor\Laravel\Generators\Schemas\MigrationSchema;
 use Webfactor\Laravel\Generators\Schemas\NamingSchema;
 use Webfactor\Laravel\Generators\ServiceHandler;
+use Webfactor\Laravel\Generators\Services\OpenIdeService;
 
 class MakeEntity extends Command
 {
@@ -63,17 +64,17 @@ class MakeEntity extends Command
     public function handle()
     {
         $this->entity = $this->argument('entity');
-        $this->naming = new NamingSchema($this->entity);
-
+        //$this->naming = new NamingSchema($this->entity);
         $this->migration = new MigrationSchema($this->option('schema'));
-        dd($this->migration->getStructure());
 
-        foreach (config('webfactor.generators.services', []) as $serviceClass) {
-            $this->excecuteService(new $serviceClass($this));
+        $serviceClassesToBeExecuted = array_push(config('webfactor.generators.services', []), OpenIdeService::class);
+
+        foreach ($serviceClassesToBeExecuted as $serviceClass) {
+            $this->executeService(new $serviceClass($this));
         }
     }
 
-    private function excecuteService(ServiceInterface $service)
+    private function executeService(ServiceInterface $service)
     {
         $service->call();
     }

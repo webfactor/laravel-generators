@@ -45,4 +45,12 @@ class CrudController extends NamingAbstract
     {
         return app_path($this->path);
     }
+
+    /**
+     * @return string
+     */
+    public function getStub(): string
+    {
+        return __DIR__ . '/../../../stubs/crud-controller.stub';
+    }
 }

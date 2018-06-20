@@ -3,12 +3,8 @@
 namespace Webfactor\Laravel\Generators\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Finder\SplFileInfo;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
-use Webfactor\Laravel\Generators\MakeServices;
 use Webfactor\Laravel\Generators\Schemas\MigrationSchema;
-use Webfactor\Laravel\Generators\Schemas\NamingSchema;
-use Webfactor\Laravel\Generators\ServiceHandler;
 use Webfactor\Laravel\Generators\Services\OpenIdeService;
 
 class MakeEntity extends Command
@@ -67,9 +63,7 @@ class MakeEntity extends Command
 
         $this->loadSchema();
         $this->loadNaming();
-        dd($this->naming['crudModel']->getFile());
-        $this->loadSerivces();
-
+        $this->loadServices();
     }
 
     private function loadSchema()
@@ -85,11 +79,18 @@ class MakeEntity extends Command
         }
     }
 
-    private function loadSerivces()
+    private function loadServices()
     {
-        foreach ($this->getServicesToBeExecuted() as $serviceClass) {
+        $services = $this->getServicesToBeExecuted();
+        $progressBar = $this->output->createProgressBar(count($services));
+
+        foreach ($services as $serviceClass) {
             $this->executeService(new $serviceClass($this));
+
+            $progressBar->advance();
         }
+
+        $progressBar->finish();
     }
 
     private function getServicesToBeExecuted(): array
@@ -111,8 +112,10 @@ class MakeEntity extends Command
      * @param $file
      * @return void
      */
-    public function addFile(SplFileInfo $file): void
+    public function addFile(?\SplFileInfo $file): void
     {
-        array_push($this->filesToBeOpened, $file);
+        if ($file) {
+            array_push($this->filesToBeOpened, $file);
+        }
     }
 }

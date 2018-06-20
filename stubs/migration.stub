@@ -17,8 +17,6 @@ class __migration_class__ extends Migration
             __migration_fields__
             $table->timestamps();
         });
-
-        __options__
     }
 
     /**

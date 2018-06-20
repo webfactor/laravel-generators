@@ -19,7 +19,7 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
             'name' => $this->getName($this->command->entity),
         ]);
 
-        $this->addLatestFileToIdeStack();
+        $this->addGeneratedFileToIdeStack();
 
         $this->setRules();
 

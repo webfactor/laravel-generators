@@ -22,7 +22,7 @@ class LanguageFileService extends ServiceAbstract implements ServiceInterface
 
         $this->writeFile($this->getName($this->command->entity));
 
-        $this->addLatestFileToIdeStack();
+        $this->addGeneratedFileToIdeStack();
     }
 
     public function getName(string $entity): string

@@ -21,7 +21,7 @@ class RouteService extends ServiceAbstract implements ServiceInterface
 
         if ($this->filesystem->exists($this->routeFile)) {
             $this->writeFile();
-            $this->addLatestFileToIdeStack();
+            $this->addGeneratedFileToIdeStack();
         }
     }
 

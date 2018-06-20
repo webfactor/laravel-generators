@@ -21,7 +21,7 @@ class SidebarService extends ServiceAbstract implements ServiceInterface
 
         if ($this->filesystem->exists($this->sidebarFile)) {
             $this->writeFile();
-            $this->addLatestFileToIdeStack();
+            $this->addGeneratedFileToIdeStack();
         }
     }
 

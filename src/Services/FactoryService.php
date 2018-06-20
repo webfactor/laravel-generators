@@ -16,7 +16,7 @@ class FactoryService extends ServiceAbstract implements ServiceInterface
             '--model' => 'Models\\' . $this->getModelName($this->command->entity),
         ]);
 
-        $this->addLatestFileToIdeStack();
+        $this->addGeneratedFileToIdeStack();
     }
 
     public function getName(string $entity): string

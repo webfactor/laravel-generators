@@ -17,7 +17,7 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
             'name' => $this->getName($this->command->entity),
         ]);
 
-        $this->addLatestFileToIdeStack();
+        $this->addGeneratedFileToIdeStack();
         $this->fillFillableAttributeInGeneratedModelFromSchema();
     }
 

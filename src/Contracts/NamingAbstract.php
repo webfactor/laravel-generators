@@ -12,16 +12,26 @@ abstract class NamingAbstract
 
     protected $entity;
 
+    /**
+     * NamingAbstract constructor.
+     * @param string $entity
+     */
     public function __construct(string $entity)
     {
         $this->entity = $entity;
     }
 
+    /**
+     * @return string
+     */
     public function getFile(): string
     {
         return $this->getPath() . '/' . $this->getFileName();
     }
 
+    /**
+     * @return string
+     */
     abstract function getPath(): string;
 
     abstract function getFileName(): string;

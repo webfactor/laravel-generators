@@ -15,7 +15,7 @@ class SeederService extends ServiceAbstract implements ServiceInterface
             'name' => $this->getName($this->command->entity),
         ]);
 
-        $this->addLatestFileToIdeStack();
+        $this->addGeneratedFileToIdeStack();
     }
 
     public function getName(string $entity): string

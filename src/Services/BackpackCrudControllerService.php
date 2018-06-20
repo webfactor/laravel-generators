@@ -21,7 +21,7 @@ class BackpackCrudControllerService extends ServiceAbstract implements ServiceIn
             'name' => $this->getName($this->command->entity),
         ]);
 
-        $this->addLatestFileToIdeStack();
+        $this->addGeneratedFileToIdeStack();
 
         $this->setColumns();
         $this->setFields();

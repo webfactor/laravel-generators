@@ -2,30 +2,76 @@
 
 namespace Webfactor\Laravel\Generators\Services;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
 class MigrationService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'database/migrations';
+    protected $key = 'migration';
 
     public function call()
     {
-        $this->command->call('make:migration:schema', [
-            'name' => $this->getName($this->command->entity),
-            '--model' => 0,
-            '--schema' => $this->command->option('schema'),
-        ]);
+        $this->generateMigrationFile();
+        $this->addGeneratedFileToIdeStack();
 
         if ($this->command->option('migrate')) {
             $this->command->call('migrate');
         }
-
-        $this->addLatestFileToIdeStack();
     }
 
-    public function getName(string $entity): string
+    /**
+     * Generate the migration file and save it according to specified naming.
+     *
+     * @return void
+     */
+    protected function generateMigrationFile(): void
     {
-        return 'create_' . snake_case(str_plural($entity)) . '_table';
+        try {
+            $stub = $this->filesystem->get($this->naming->getStub());
+        } catch (FileNotFoundException $exception) {
+            $this->command->error('Could not find stub file: ' . $this->naming->getStub());
+        }
+
+        $this->replaceClassName($stub);
+        $this->replaceTableName($stub);
+        $this->replaceMigrationFields($stub);
+
+        $this->filesystem->put($this->naming->getFile(), $stub);
+    }
+
+    /**
+     * Replace the class name in stub file.
+     *
+     * @return string
+     */
+    protected function replaceClassName(&$stub): void
+    {
+        $stub = str_replace('__migration_class__', $this->naming->getClassName(), $stub);
+    }
+
+    /**
+     * Replace the table name in stub file.
+     *
+     * @return string
+     */
+    protected function replaceTableName(&$stub): void
+    {
+        $stub = str_replace('__table_name__', $this->naming->getTableName(), $stub);
+    }
+
+    /**
+     * Generate migration fields in stub file.
+     *
+     * @return string
+     */
+    protected function replaceMigrationFields(&$stub): void
+    {
+        $stub = str_replace('__migration_fields__', $this->generateMigrationFields(), $stub);
+    }
+
+    protected function generateMigrationFields(): string
+    {
+        return '';
     }
 }

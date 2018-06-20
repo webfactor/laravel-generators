@@ -8,26 +8,18 @@ use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
 
 class LanguageFileService extends ServiceAbstract implements ServiceInterface
 {
-    private $languageFile;
+    protected $key = 'languageFile';
 
-    private $translation = [];
+    protected $languageFile;
 
-    private $currentLanguage;
+    protected $translation = [];
 
     public function call()
     {
-        $this->currentLanguage = \Lang::locale();
-        $this->relativeToBasePath = 'resources/lang/' . $this->currentLanguage;
-        $this->languageFile = $this->getFilePath();
+        $this->languageFile = $this->naming->getFile();
 
-        $this->writeFile($this->getName($this->command->entity));
-
+        $this->generateLanguageFile($this->naming->getName());
         $this->addGeneratedFileToIdeStack();
-    }
-
-    public function getName(string $entity): string
-    {
-        return snake_case($entity);
     }
 
     /**
@@ -37,7 +29,7 @@ class LanguageFileService extends ServiceAbstract implements ServiceInterface
      *
      * @return string
      */
-    private function writeFile($name)
+    private function generateLanguageFile($name)
     {
         if ($this->filesystem->exists($this->languageFile)) {
             $this->translation = include $this->languageFile;
@@ -49,11 +41,6 @@ class LanguageFileService extends ServiceAbstract implements ServiceInterface
         ]);
 
         return $this->filesystem->put($this->languageFile, $this->getTranslationFileContent());
-    }
-
-    private function getFilePath()
-    {
-        return resource_path('lang/' . $this->currentLanguage) . '/models.php';
     }
 
     private function getTranslationFileContent()

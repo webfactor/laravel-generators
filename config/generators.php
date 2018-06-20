@@ -7,8 +7,8 @@ return [
      */
     'services' => [
         Webfactor\Laravel\Generators\Services\MigrationService::class,
-        /*Webfactor\Laravel\Generators\Services\LanguageFileService::class,
-        Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
+        Webfactor\Laravel\Generators\Services\LanguageFileService::class,
+        /*Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudRequestService::class,
         Webfactor\Laravel\Generators\Services\FactoryService::class,
@@ -27,6 +27,7 @@ return [
 
     'naming' => [
         'migration' => Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
+        'languageFile' => Webfactor\Laravel\Generators\Schemas\Naming\LanguageFile::class,
         'crudModel' => Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
         'crudRequest' => Webfactor\Laravel\Generators\Schemas\Naming\CrudRequest::class,
         'crudController' => Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,

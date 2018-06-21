@@ -30,7 +30,7 @@ abstract class NamingAbstract
     /**
      * @return string
      */
-    abstract function getPath(): string;
+    abstract public function getPath(): string;
 
-    abstract function getFileName(): string;
+    abstract public function getFileName(): string;
 }

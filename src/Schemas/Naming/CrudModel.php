@@ -10,19 +10,11 @@ class CrudModel extends NamingAbstract
     use DetectsApplicationNamespace;
 
     /**
-     * Relative path to app
-     * @var string
-     */
-    protected $path = 'Models';
-
-    protected $namespace = 'Models\\';
-
-    /**
      * @return string
      */
     public function getNamespace(): string
     {
-        return $this->getAppNamespace() . $this->namespace;
+        return $this->getAppNamespace() . 'Models\\';
     }
 
     /**
@@ -46,7 +38,7 @@ class CrudModel extends NamingAbstract
      */
     public function getPath(): string
     {
-        return app_path($this->path);
+        return app_path('Models');
     }
 
     /**

@@ -8,8 +8,6 @@ abstract class NamingAbstract
 {
     use DetectsApplicationNamespace;
 
-    protected $path;
-
     protected $entity;
 
     /**

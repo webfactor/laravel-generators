@@ -7,12 +7,6 @@ use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
 
 class Migration extends NamingAbstract
 {
-    /**
-     * Relative path to database
-     * @var string
-     */
-    protected $path = 'migrations';
-
     protected $fileName;
 
     /**
@@ -63,7 +57,7 @@ class Migration extends NamingAbstract
      */
     public function getPath(): string
     {
-        return database_path($this->path);
+        return database_path('migrations');
     }
 
     /**

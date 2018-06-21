@@ -10,19 +10,11 @@ class CrudRequest extends NamingAbstract
     use DetectsApplicationNamespace;
 
     /**
-     * Relative path to app
-     * @var string
-     */
-    protected $path = 'Http/Requests/Admin';
-
-    protected $namespace = 'Http\\Requests\\Admin\\';
-
-    /**
      * @return string
      */
     public function getNamespace(): string
     {
-        return $this->getAppNamespace() . $this->namespace;
+        return $this->getAppNamespace() . 'Http\\Requests\\Admin\\';
     }
 
     /**
@@ -46,7 +38,7 @@ class CrudRequest extends NamingAbstract
      */
     public function getPath(): string
     {
-        return app_path($this->path);
+        return app_path('Http/Requests/Admin');
     }
 
     /**

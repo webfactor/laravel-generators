@@ -14,7 +14,7 @@ class CrudModel extends NamingAbstract
      */
     public function getNamespace(): string
     {
-        return $this->getAppNamespace() . 'Models\\';
+        return $this->getAppNamespace() . 'Models';
     }
 
     /**

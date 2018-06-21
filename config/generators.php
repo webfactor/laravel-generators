@@ -6,10 +6,10 @@ return [
      * have to implement Webfactor\Laravel\Generators\Contracts\MakeServiceInterface.
      */
     'services' => [
-        Webfactor\Laravel\Generators\Services\MigrationService::class,
-        Webfactor\Laravel\Generators\Services\LanguageFileService::class,
-        /*Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
-        Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
+        /*Webfactor\Laravel\Generators\Services\MigrationService::class,
+        Webfactor\Laravel\Generators\Services\LanguageFileService::class,*/
+        Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
+        /*Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudRequestService::class,
         Webfactor\Laravel\Generators\Services\FactoryService::class,
         Webfactor\Laravel\Generators\Services\SeederService::class,

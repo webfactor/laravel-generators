@@ -11,7 +11,7 @@ class CrudController extends NamingAbstract
      */
     public function getNamespace(): string
     {
-        return $this->getAppNamespace() . 'Http\\Controllers\\Admin\\';
+        return $this->getAppNamespace() . 'Http\\Controllers\\Admin';
     }
 
     /**

@@ -14,7 +14,7 @@ class CrudRequest extends NamingAbstract
      */
     public function getNamespace(): string
     {
-        return $this->getAppNamespace() . 'Http\\Requests\\Admin\\';
+        return $this->getAppNamespace() . 'Http\\Requests\\Admin';
     }
 
     /**

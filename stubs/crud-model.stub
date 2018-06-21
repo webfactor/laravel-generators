@@ -5,7 +5,7 @@ namespace __class_namespace__;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class DummyClass extends Model
+class __class_name__ extends Model
 {
     use CrudTrait;
 

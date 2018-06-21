@@ -64,6 +64,6 @@ trait CanGenerateFile
      */
     protected function replaceTableName(): void
     {
-        $this->fileContent = str_replace('__table_name__', $this->naming->getTableName(), $this->fileContent);
+        $this->fileContent = str_replace('__table_name__', $this->command->naming['migration']->getTableName(), $this->fileContent);
     }
 }

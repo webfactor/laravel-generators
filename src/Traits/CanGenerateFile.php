@@ -19,15 +19,22 @@ trait CanGenerateFile
      */
     protected function generateFile(): void
     {
-        try {
-            $this->fileContent = $this->filesystem->get($this->naming->getStub());
-        } catch (FileNotFoundException $exception) {
-            $this->command->error('Could not find stub file: ' . $this->naming->getStub());
+        if (method_exists($this->naming, 'getStub')) {
+            $this->loadStubFile($this->naming->getStub());
         }
 
         $this->buildFileContent();
 
         $this->filesystem->put($this->naming->getFile(), $this->fileContent);
+    }
+
+    protected function loadStubFile(string $stubFile): void
+    {
+        try {
+            $this->fileContent = $this->filesystem->get($stubFile);
+        } catch (FileNotFoundException $exception) {
+            $this->command->error('Could not find stub file: ' . $stubFile);
+        }
     }
 
     /**

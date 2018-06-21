@@ -5,47 +5,38 @@ namespace Webfactor\Laravel\Generators\Services;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
+use Webfactor\Laravel\Generators\Traits\CanGenerateFile;
 
 class LanguageFileService extends ServiceAbstract implements ServiceInterface
 {
+    use CanGenerateFile;
+
     protected $key = 'languageFile';
 
-    protected $languageFile;
-
-    protected $translation = [];
-
-    public function call()
-    {
-        $this->languageFile = $this->naming->getFile();
-
-        $this->generateLanguageFile($this->naming->getName());
-        $this->addGeneratedFileToIdeStack();
-    }
-
     /**
-     * Build the class with the given name.
+     * Build the language file.
      *
      * @param string $name
      *
      * @return string
      */
-    private function generateLanguageFile($name)
+    private function buildFileContent()
     {
-        if ($this->filesystem->exists($this->languageFile)) {
-            $this->translation = include $this->languageFile;
+        if ($this->filesystem->exists($this->naming->getFile())) {
+            $translation = include $this->naming->getFile();
         }
 
-        $this->translation = array_add($this->translation, $name, [
-            'singular' => ucfirst($name),
-            'plural'   => ucfirst(str_plural($name)),
+        $translation = array_add($translation, $this->naming->getName(), [
+            'singular' => $this->naming->getSingular(),
+            'plural'   => $this->naming->getPlural(),
         ]);
 
-        return $this->filesystem->put($this->languageFile, $this->getTranslationFileContent());
+        $this->fileContent = $this->getTranslationFileContent($translation);
     }
 
-    private function getTranslationFileContent()
+    private function getTranslationFileContent(array $translation)
     {
-        $content = ShortSyntaxArray::parse($this->translation);
+        $content = ShortSyntaxArray::parse($translation);
 
         return <<<FILE
 <?php

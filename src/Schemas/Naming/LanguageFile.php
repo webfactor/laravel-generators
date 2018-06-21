@@ -18,6 +18,22 @@ class LanguageFile extends NamingAbstract
     /**
      * @return string
      */
+    public function getSingular(): string
+    {
+        return ucfirst($this->entity);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlural(): string
+    {
+        return ucfirst(str_plural($this->entity));
+    }
+
+    /**
+     * @return string
+     */
     public function getFileName(): string
     {
         return 'models.php';

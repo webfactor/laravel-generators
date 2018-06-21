@@ -21,6 +21,18 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 3.0.0 - 2018-06-XX
+
+
+
+## 2.1.0 - 2018-03-30 (for Backpack Base v0.9)
+
+### Added
+- `SidebarService` adds an entry to your sidebar
+
+### Changed
+- `RouteService` now uses `routes/backpack/custom.php
+
 ## 2.0.0 - 2018-03-23
 
 ### Added

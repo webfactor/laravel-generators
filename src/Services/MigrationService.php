@@ -47,7 +47,7 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
      */
     protected function replaceClassName(&$stub): void
     {
-        $stub = str_replace('__migration_class__', $this->naming->getClassName(), $stub);
+        $stub = str_replace('__class_name__', $this->naming->getClassName(), $stub);
     }
 
     /**

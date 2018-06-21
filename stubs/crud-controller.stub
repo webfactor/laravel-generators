@@ -1,17 +1,14 @@
 <?php
 
-namespace __controller_namespace__;
+namespace __class_namespace__;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use __model_namespace__\__model_class__;
 use __model_namespace__\__request_class__ as StoreRequest;
 use __model_namespace__\__request_class__ as UpdateRequest;
-__imports__
 
-class __controller_class__ extends CrudController
+class __class_name__ extends CrudController
 {
-    __traits__
-
     public function setup()
     {
 
@@ -34,17 +31,10 @@ class __controller_class__ extends CrudController
 
         $this->crud->addColumns(__columns__);
 
-        __extra_columns__
-
         // ------ CRUD FIELDS
 
         $this->crud->addFields(__fields__);
 
-        __extra_fields__
-
-        // ------ OPTIONS
-
-        __options__
     }
 
     public function store(StoreRequest $request)

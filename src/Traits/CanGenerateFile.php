@@ -25,6 +25,10 @@ trait CanGenerateFile
 
         $this->buildFileContent();
 
+        if (!$this->filesystem->isDirectory($this->naming->getPath())) {
+            $this->filesystem->makeDirectory($this->naming->getPath());
+        }
+
         $this->filesystem->put($this->naming->getFile(), $this->fileContent);
     }
 

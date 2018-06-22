@@ -6,13 +6,13 @@ use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
 class DateType extends SchemaFieldAbstract
 {
-    protected $validationRule = 'required|date';
+    public $validationRule = 'required|date';
 
-    protected $crudColumn = [
+    public $crudColumn = [
         'type' => 'date',
     ];
 
-    protected $crudField = [
+    public $crudField = [
         'type' => 'date',
     ];
 }

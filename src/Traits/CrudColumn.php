@@ -4,7 +4,7 @@ namespace Webfactor\Laravel\Generators\Traits;
 
 trait CrudColumn
 {
-    protected $crudColumn = [
+    public $crudColumn = [
         'type' => 'text',
     ];
 

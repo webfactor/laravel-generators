@@ -76,4 +76,24 @@ class Schema
     {
         return $fieldType;
     }
+
+    public function getFieldNames()
+    {
+        return $this->getStructure()->pluck('name');
+    }
+
+    public function getCrudFields()
+    {
+        return $this->getStructure()->pluck('crudField');
+    }
+
+    public function getCrudColumns()
+    {
+        return $this->getStructure()->pluck('crudColumn');
+    }
+
+    public function getValidationRules()
+    {
+        return $this->getStructure()->pluck('validationRule');
+    }
 }

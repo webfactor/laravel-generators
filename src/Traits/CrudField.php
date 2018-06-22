@@ -4,7 +4,7 @@ namespace Webfactor\Laravel\Generators\Traits;
 
 trait CrudField
 {
-    protected $crudField = [
+    public $crudField = [
         'type' => 'text',
     ];
 

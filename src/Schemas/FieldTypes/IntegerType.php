@@ -6,13 +6,13 @@ use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
 class IntegerType extends SchemaFieldAbstract
 {
-    protected $validationRule = 'required|integer';
+    public $validationRule = 'required|integer';
 
-    protected $crudColumn = [
+    public $crudColumn = [
         'type' => 'number',
     ];
 
-    protected $crudField = [
+    public $crudField = [
         'type' => 'number',
     ];
 }

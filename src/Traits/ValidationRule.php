@@ -4,7 +4,7 @@ namespace Webfactor\Laravel\Generators\Traits;
 
 trait ValidationRule
 {
-    protected $validationRule;
+    public $validationRule;
 
     public function getValidationRule(): string
     {

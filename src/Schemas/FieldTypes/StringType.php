@@ -6,13 +6,13 @@ use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
 class StringType extends SchemaFieldAbstract
 {
-    protected $validationRule = 'required';
+    public $validationRule = 'required';
 
-    protected $crudColumn = [
+    public $crudColumn = [
         'type' => 'text',
     ];
 
-    protected $crudField = [
+    public $crudField = [
         'type' => 'text',
     ];
 }

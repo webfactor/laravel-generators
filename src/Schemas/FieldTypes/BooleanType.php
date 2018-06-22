@@ -6,13 +6,13 @@ use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
 class BooleanType extends SchemaFieldAbstract
 {
-    protected $validationRule = 'required|boolean';
+    public $validationRule = 'required|boolean';
 
-    protected $crudColumn = [
+    public $crudColumn = [
         'type' => 'boolean',
     ];
 
-    protected $crudField = [
+    public $crudField = [
         'type' => 'boolean',
     ];
 }

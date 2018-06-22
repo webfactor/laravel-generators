@@ -11,7 +11,7 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
 {
     use CrudColumn, CrudField, ValidationRule;
 
-    private $name;
+    public $name;
 
     private $availableMethods = [
         'field' => 'setCrudFieldOptions',
@@ -46,13 +46,5 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
         if (key_exists($left, $this->availableMethods)) {
             call_user_func([$this, $this->availableMethods[$left]], $inside);
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

@@ -6,71 +6,55 @@ use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
+use Webfactor\Laravel\Generators\Traits\CanGenerateFile;
 
 class BackpackCrudControllerService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'app/Http/Controllers/Admin';
+    use CanGenerateFile;
 
-    private $columns = [];
+    protected $key = 'crudController';
 
-    private $fields = [];
-
-    public function call()
+    protected function buildFileContent()
     {
-        $this->command->call('make:crud-controller', [
-            'name' => $this->getName($this->command->entity),
-        ]);
-
-        $this->addGeneratedFileToIdeStack();
-
-        $this->setColumns();
-        $this->setFields();
-
-        $this->insertColumnsAndFieldsInGeneratedController();
+        $this->replaceClassNamespace();
+        $this->replaceClassName();
+        $this->replaceModelRelatedStrings();
+        $this->replaceRequestRelatedStrings();
+        $this->replaceLanguageFileRelatedStrings();
+        $this->replaceRouteFileRelatedStrings();
+        $this->replaceFieldStrings();
+        $this->replaceColumnStrings();
     }
 
-    public function getName(string $entity): string
+    protected function replaceModelRelatedStrings()
     {
-        return ucfirst($entity);
+        $this->fileContent = str_replace('__model_namespace__', $this->command->naming['crudModel']->getNamespace(), $this->fileContent);
+        $this->fileContent = str_replace('__model_class__', $this->command->naming['crudModel']->getClassName(), $this->fileContent);
     }
 
-    private function setFields(): void
+    protected function replaceRequestRelatedStrings()
     {
-        $this->command->schema->getStructure()->each(function (SchemaFieldAbstract $migrationField) {
-            array_push($this->fields, $migrationField->getCrudField());
-        });
+        $this->fileContent = str_replace('__request_namespace__', $this->command->naming['crudRequest']->getNamespace(), $this->fileContent);
+        $this->fileContent = str_replace('__request_class__', $this->command->naming['crudRequest']->getClassName(), $this->fileContent);
     }
 
-    private function setColumns(): void
+    protected function replaceLanguageFileRelatedStrings()
     {
-        $this->command->schema->getStructure()->each(function (SchemaFieldAbstract $migrationField) {
-            array_push($this->columns, $migrationField->getCrudColumn());
-        });
+        $this->fileContent = str_replace('__languagefile_key__', $this->command->naming['languageFile']->getName(), $this->fileContent);
     }
 
-    private function insertColumnsAndFieldsInGeneratedController(): void
+    protected function replaceRouteFileRelatedStrings()
     {
-        $controllerFile = end($this->command->filesToBeOpened);
-
-        $controller = $this->filesystem->get($controllerFile);
-        $controller = str_replace('__columns__', $this->getColumnsAsString(), $controller);
-        $controller = str_replace('__fields__', $this->getfieldsAsString(), $controller);
-        $this->filesystem->put($controllerFile, $controller);
+        $this->fileContent = str_replace('__route_name__', $this->command->naming['routeFile']->getName(), $this->fileContent);
     }
 
-    /**
-     * @return string
-     */
-    private function getColumnsAsString(): string
+    protected function replaceFieldStrings()
     {
-        return ShortSyntaxArray::parse($this->columns);
+        $this->fileContent = str_replace('__fields__', ShortSyntaxArray::parse($this->command->schema->getCrudFields()->toArray()), $this->fileContent);
     }
 
-    /**
-     * @return string
-     */
-    private function getFieldsAsString(): string
+    protected function replaceColumnStrings()
     {
-        return ShortSyntaxArray::parse($this->fields);
+        $this->fileContent = str_replace('__columns__', ShortSyntaxArray::parse($this->command->schema->getCrudColumns()->toArray()), $this->fileContent);
     }
 }

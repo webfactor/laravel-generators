@@ -1,0 +1,10 @@
+<?php
+
+use Faker\Generator as Faker;
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(__model_namespace__\__model_class__::class, function (Faker $faker) {
+    return [
+        //
+    ];
+});

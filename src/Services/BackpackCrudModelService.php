@@ -23,6 +23,11 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
 
     protected function replaceFillable()
     {
-        $this->fileContent = str_replace('__fillable__', '', $this->fileContent);
+        $fillables = $this->command->schema->getStructure()
+            ->map(function ($item) {
+                return "'" . $item->name . "'";
+            });
+
+        $this->fileContent = str_replace('__fillable__', $fillables->implode(', '), $this->fileContent);
     }
 }

@@ -4,7 +4,7 @@ namespace Webfactor\Laravel\Generators\Commands;
 
 use Illuminate\Console\Command;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
-use Webfactor\Laravel\Generators\Schemas\MigrationSchema;
+use Webfactor\Laravel\Generators\Schemas\Schema;
 use Webfactor\Laravel\Generators\Services\OpenIdeService;
 
 class MakeEntity extends Command
@@ -39,11 +39,11 @@ class MakeEntity extends Command
     public $entity;
 
     /**
-     * The migration schema object.
+     * The Schema object.
      *
-     * @var MigrationSchema
+     * @var Schema
      */
-    public $migration;
+    public $schema;
 
     /**
      * The naming schema object.
@@ -68,7 +68,7 @@ class MakeEntity extends Command
 
     private function loadSchema()
     {
-        $this->migration = new MigrationSchema($this->option('schema'));
+        $this->schema = new Schema($this->option('schema'));
     }
 
     private function loadNaming()

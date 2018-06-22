@@ -2,7 +2,7 @@
 
 namespace Webfactor\Laravel\Generators\Services;
 
-use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
+use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
@@ -37,7 +37,7 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
 
     private function setRules(): void
     {
-        $this->command->migration->getStructure()->each(function (MigrationFieldAbstract $migrationField) {
+        $this->command->schema->getStructure()->each(function (SchemaFieldAbstract $migrationField) {
             $this->rules[$migrationField->getName()] = $migrationField->getValidationRule();
         });
     }

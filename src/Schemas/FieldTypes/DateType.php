@@ -2,9 +2,9 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\FieldTypes;
 
-use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
+use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
-class DateType extends MigrationFieldAbstract
+class DateType extends SchemaFieldAbstract
 {
     protected $validationRule = 'required|date';
 

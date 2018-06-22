@@ -2,9 +2,9 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\FieldTypes;
 
-use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
+use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
-class IntegerType extends MigrationFieldAbstract
+class IntegerType extends SchemaFieldAbstract
 {
     protected $validationRule = 'required|integer';
 

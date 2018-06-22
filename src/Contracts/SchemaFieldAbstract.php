@@ -7,7 +7,7 @@ use Webfactor\Laravel\Generators\Traits\CrudColumn;
 use Webfactor\Laravel\Generators\Traits\CrudField;
 use Webfactor\Laravel\Generators\Traits\ValidationRule;
 
-abstract class MigrationFieldAbstract implements MigrationFieldTypeInterface
+abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
 {
     use CrudColumn, CrudField, ValidationRule;
 

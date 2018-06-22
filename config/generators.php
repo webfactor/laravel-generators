@@ -31,6 +31,7 @@ return [
         'crudModel' => Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
         'crudRequest' => Webfactor\Laravel\Generators\Schemas\Naming\CrudRequest::class,
         'crudController' => Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,
+        'routeFile' => Webfactor\Laravel\Generators\Schemas\Naming\RouteFile::class,
     ],
 
     'fieldTypes' => [

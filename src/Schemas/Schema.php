@@ -94,6 +94,6 @@ class Schema
 
     public function getValidationRules()
     {
-        return $this->getStructure()->pluck('validationRule');
+        return $this->getStructure()->pluck('validationRule', 'name');
     }
 }

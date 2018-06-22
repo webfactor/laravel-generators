@@ -6,56 +6,23 @@ use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Helper\ShortSyntaxArray;
+use Webfactor\Laravel\Generators\Traits\CanGenerateFile;
 
 class BackpackCrudRequestService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'app/Http/Requests/Admin';
+    use CanGenerateFile;
 
-    private $rules = [];
+    protected $key = 'crudRequest';
 
-    public function call()
+    protected function buildFileContent()
     {
-        $this->command->call('make:crud-request', [
-            'name' => $this->getName($this->command->entity),
-        ]);
-
-        $this->addGeneratedFileToIdeStack();
-
-        $this->setRules();
-
-        $this->insertRulesInGeneratedRequest();
+        $this->replaceClassNamespace();
+        $this->replaceClassName();
+        $this->replaceValidationRules();
     }
 
-    /**
-     * @param string $entity
-     * @return string
-     */
-    public function getName(string $entity): string
+    protected function replaceValidationRules()
     {
-        return ucfirst($entity);
-    }
-
-    private function setRules(): void
-    {
-        $this->command->schema->getStructure()->each(function (SchemaFieldAbstract $migrationField) {
-            $this->rules[$migrationField->getName()] = $migrationField->getValidationRule();
-        });
-    }
-
-    private function insertRulesInGeneratedRequest(): void
-    {
-        $requestFile = end($this->command->filesToBeOpened);
-
-        $request = $this->filesystem->get($requestFile);
-        $request = str_replace('__rules__', $this->getRulesAsString(), $request);
-        $this->filesystem->put($requestFile, $request);
-    }
-
-    /**
-     * @return string
-     */
-    private function getRulesAsString(): string
-    {
-        return ShortSyntaxArray::parse($this->rules);
+        $this->fileContent = str_replace('__rules__', ShortSyntaxArray::parse($this->command->schema->getValidationRules()->toArray()), $this->fileContent);
     }
 }

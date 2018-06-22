@@ -2,7 +2,6 @@
 
 namespace __class_namespace__;
 
-use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class __class_name__ extends FormRequest

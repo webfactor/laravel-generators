@@ -4,22 +4,23 @@ namespace Webfactor\Laravel\Generators\Services;
 
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
+use Webfactor\Laravel\Generators\Traits\CanGenerateFile;
 
 class SeederService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'database/seeds';
+    use CanGenerateFile;
 
-    public function call()
+    protected $key = 'seeder';
+
+    protected function buildFileContent()
     {
-        $this->command->call('make:seeder', [
-            'name' => $this->getName($this->command->entity),
-        ]);
-
-        $this->addGeneratedFileToIdeStack();
+        $this->replaceClassName();
+        $this->replaceModelRelatedStrings();
     }
 
-    public function getName(string $entity): string
+    protected function replaceModelRelatedStrings()
     {
-        return ucfirst(str_plural($entity)) . 'TableSeeder';
+        $this->fileContent = str_replace('__model_namespace__', $this->command->naming['crudModel']->getNamespace(), $this->fileContent);
+        $this->fileContent = str_replace('__model_class__', $this->command->naming['crudModel']->getClassName(), $this->fileContent);
     }
 }

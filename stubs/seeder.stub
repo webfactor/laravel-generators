@@ -1,0 +1,17 @@
+<?php
+
+use __model_namespace__\__model_class__;
+use Illuminate\Database\Seeder;
+
+class __class_name__ extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        create(__model_class__::class, [], 20);
+    }
+}

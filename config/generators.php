@@ -33,6 +33,7 @@ return [
         'crudController' => Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,
         'routeFile' => Webfactor\Laravel\Generators\Schemas\Naming\RouteFile::class,
         'factory' => Webfactor\Laravel\Generators\Schemas\Naming\Factory::class,
+        'seeder' => Webfactor\Laravel\Generators\Schemas\Naming\Seeder::class,
     ],
 
     'fieldTypes' => [

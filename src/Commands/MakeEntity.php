@@ -5,6 +5,7 @@ namespace Webfactor\Laravel\Generators\Commands;
 use Illuminate\Console\Command;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Schemas\Schema;
+use Webfactor\Laravel\Generators\Services\AddToGitService;
 use Webfactor\Laravel\Generators\Services\OpenIdeService;
 
 class MakeEntity extends Command
@@ -14,7 +15,7 @@ class MakeEntity extends Command
      *
      * @var string
      */
-    protected $signature = 'make:entity {entity} {--schema=name:string} {--migrate} {--ide=}';
+    protected $signature = 'make:entity {entity} {--schema=name:string} {--migrate} {--git} {--ide=}';
 
     /**
      * The console command description.
@@ -113,6 +114,7 @@ class MakeEntity extends Command
     {
         $serviceClassesToBeExecuted = config('webfactor.generators.services', []);
         array_push($serviceClassesToBeExecuted, OpenIdeService::class);
+        array_push($serviceClassesToBeExecuted, AddToGitService::class);
 
         return $serviceClassesToBeExecuted;
     }

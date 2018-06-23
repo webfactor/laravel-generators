@@ -6,15 +6,15 @@ return [
      * have to implement Webfactor\Laravel\Generators\Contracts\MakeServiceInterface.
      */
     'services' => [
-        /*Webfactor\Laravel\Generators\Services\MigrationService::class,
-        Webfactor\Laravel\Generators\Services\LanguageFileService::class,*/
+        Webfactor\Laravel\Generators\Services\MigrationService::class,
+        Webfactor\Laravel\Generators\Services\LanguageFileService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
-        /*Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudRequestService::class,
+        Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\FactoryService::class,
         Webfactor\Laravel\Generators\Services\SeederService::class,
         Webfactor\Laravel\Generators\Services\RouteService::class,
-        Webfactor\Laravel\Generators\Services\SidebarService::class,*/
+        Webfactor\Laravel\Generators\Services\SidebarService::class,
     ],
 
     /*
@@ -34,6 +34,7 @@ return [
         'routeFile' => Webfactor\Laravel\Generators\Schemas\Naming\RouteFile::class,
         'factory' => Webfactor\Laravel\Generators\Schemas\Naming\Factory::class,
         'seeder' => Webfactor\Laravel\Generators\Schemas\Naming\Seeder::class,
+        'sidebar' => Webfactor\Laravel\Generators\Schemas\Naming\Sidebar::class,
     ],
 
     'fieldTypes' => [

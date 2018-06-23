@@ -23,15 +23,12 @@ abstract class ServiceAbstract
         if ($this->key) {
             $this->naming = $this->command->naming[$this->key];
         }
-
-        $this->command->info('Begin calling: ' . get_called_class());
     }
 
     protected function addGeneratedFileToIdeStack()
     {
         if ($file = $this->command->naming[$this->key]->getFile()) {
             $this->command->addFile($this->getSplFile($file));
-            $this->command->info($file . ' successfully added to IDE Stack');
         }
     }
 

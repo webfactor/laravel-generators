@@ -68,15 +68,28 @@ class MakeEntity extends Command
 
     private function loadSchema()
     {
+        $this->info('Load Schema');
         $this->schema = new Schema($this->option('schema'));
+        $this->info('Schema loaded');
+        $this->line('');
     }
 
     private function loadNaming()
     {
+        $this->info('Load Naming Classes');
+        $progressBar = $this->output->createProgressBar(count(config('webfactor.generators.naming')));
+
         foreach (config('webfactor.generators.naming') as $key => $naming) {
+            $progressBar->advance();
+            $this->info(' Naming Class: ' . $naming);
+
             $namingObject = new $naming($this->entity);
             $this->naming[$key] = $namingObject;
         }
+
+        $progressBar->finish();
+        $this->info(' Naming Classes loaded');
+        $this->line('');
     }
 
     private function loadServices()
@@ -85,12 +98,15 @@ class MakeEntity extends Command
         $progressBar = $this->output->createProgressBar(count($services));
 
         foreach ($services as $serviceClass) {
-            $this->executeService(new $serviceClass($this));
-
             $progressBar->advance();
+            $this->info(' Call: ' . $serviceClass);
+
+            $this->executeService(new $serviceClass($this));
         }
 
         $progressBar->finish();
+        $this->info(' Service Classes loaded');
+        $this->line('');
     }
 
     private function getServicesToBeExecuted(): array

@@ -38,10 +38,9 @@ return [
     ],
 
     'fieldTypes' => [
-        'boolean' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\BooleanType::class,
         'date' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\DateType::class,
-        'integer' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\IntegerType::class,
-        'json' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\JsonType::class,
+        'number' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\NumberType::class,
+        'summernote' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\SummernoteType::class,
         'string' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\StringType::class,
         'text' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\TextType::class,
     ]

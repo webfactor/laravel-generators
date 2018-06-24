@@ -15,11 +15,6 @@ trait CrudField
 
     private function setCrudFieldOptions(string $crudFieldOptions)
     {
-        $this->crudField['name'] = $this->name;
-
-        foreach (explode('|', $crudFieldOptions) as $crudFieldOption) {
-            $option = explode(':', $crudFieldOption);
-            $this->crudField[$option[0]] = $option[1];
-        }
+        $this->setOptions('crudField', $crudFieldOptions);
     }
 }

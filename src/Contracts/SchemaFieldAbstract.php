@@ -5,11 +5,12 @@ namespace Webfactor\Laravel\Generators\Contracts;
 use Webfactor\Laravel\Generators\Helper\RegexParser;
 use Webfactor\Laravel\Generators\Traits\CrudColumn;
 use Webfactor\Laravel\Generators\Traits\CrudField;
+use Webfactor\Laravel\Generators\Traits\MigrationField;
 use Webfactor\Laravel\Generators\Traits\ValidationRule;
 
 abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
 {
-    use CrudColumn, CrudField, ValidationRule;
+    use MigrationField, CrudColumn, CrudField, ValidationRule;
 
     public $name;
 
@@ -23,13 +24,8 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
     {
         $this->name = $this->crudField['name'] = $this->crudColumn['name'] = $fieldOptions['name'];
 
-        //$this->parseFieldOptions($fieldOptions['options']);
+        $this->setMigrationField($fieldOptions['options']);
         $this->parseCrudOptions($crudOptions);
-    }
-
-    private function parseFieldOptions(string $fieldOptions)
-    {
-        // TODO: define options
     }
 
     private function parseCrudOptions(array $crudOptions)
@@ -45,6 +41,26 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
 
         if (key_exists($left, $this->availableMethods)) {
             call_user_func([$this, $this->availableMethods[$left]], $inside);
+        }
+    }
+
+    /**
+     * @param string $variableName
+     * @param string $options
+     */
+    private function setOptions(string $variableName, string $options): void
+    {
+        $this->{$variableName}['name'] = $this->name;
+
+        if ($options) {
+            foreach (explode('|', $options) as $option) {
+                if (str_contains($option, ':')) {
+                    $option = explode(':', $option);
+                    $this->{$variableName}[$option[0]] = $option[1];
+                } else {
+                    $this->{$variableName}[$option] = true;
+                }
+            }
         }
     }
 }

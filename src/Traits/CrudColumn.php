@@ -15,11 +15,6 @@ trait CrudColumn
 
     private function setCrudColumnOptions(string $crudColumnOptions)
     {
-        $this->crudColumn['name'] = $this->name;
-
-        foreach (explode('|', $crudColumnOptions) as $crudColumnOption) {
-            $option = explode(':', $crudColumnOption);
-            $this->crudColumn[$option[0]] = $option[1];
-        }
+        $this->setOptions('crudColumn', $crudColumnOptions);
     }
 }

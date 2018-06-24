@@ -21,9 +21,24 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
-## 3.0.0 - 2018-06-XX
+## 3.0.0 - 2018-06-24 - Complete Refactoring
 
+The Refactoring is supposed to provide new functions more easily in the future.
 
+Attention: `schema` has been changed and only registered FieldTypes (see config-file) will be parsed. There are only a few FieldTypes available at the moment, more will come soon.
+
+### Added
+
+- `AddToGitService`: using `--git` in command will add all files to git
+
+### Changed
+
+- The parsing of `--schema=""` is now a bit different, but much more powerful. Please see Readme for further information
+- Naming for each service is handled by dedicated classes and can be accessed everywhere (e.g. name of Model inside a CrudController)
+
+### Removed
+
+- additional commands which are now integrated in the corresponding services
 
 ## 2.1.0 - 2018-03-30 (for Backpack Base v0.9)
 

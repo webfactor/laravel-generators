@@ -17,7 +17,7 @@ This is a package developed by us for internal use. It is supposed to help us du
 This package is indended to be used only for development, not for production. Because of that we recommend to use `require-dev`:
 
 ``` bash
-composer require-dev webfactor/laravel-generators
+composer require --dev webfactor/laravel-generators
 ```
 
 ## Usage
@@ -31,6 +31,7 @@ php artisan make:entity {entity_name} {--schema=} {--migrate} {--ide=} {--git}
 - `--migrate`: will automatically call `php artisan migrate` after creating the migration file
 - `--ide=`: will open all files in your prefered [IDE](#open-files-in-ide)
 - `--git`: will add all files to [git](#add-files-to-git)
+
 
 If you want to add Services, Naming classes, Field Types, or IDE Opener you have to publish the config-file:
 

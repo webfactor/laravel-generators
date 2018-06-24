@@ -1,11 +1,11 @@
 <?php
 
-namespace DummyNamespace;
+namespace __class_namespace__;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class DummyClass extends Model
+class __class_name__ extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class DummyClass extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'DummyTable';
+    protected $table = '__table_name__';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];

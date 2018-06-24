@@ -3,41 +3,43 @@
 namespace Webfactor\Laravel\Generators\Contracts;
 
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Finder\SplFileInfo;
 use Webfactor\Laravel\Generators\Commands\MakeEntity;
 
 abstract class ServiceAbstract
 {
     protected $command;
 
-    protected $filesystem;
+    protected $key;
 
-    protected $relativeToBasePath;
+    protected $naming;
+
+    protected $filesystem;
 
     public function __construct(MakeEntity $command)
     {
         $this->command = $command;
         $this->filesystem = new Filesystem();
+
+        if ($this->key) {
+            $this->naming = $this->command->naming[$this->key];
+        }
     }
 
-    protected function addLatestFileToIdeStack()
+    protected function addGeneratedFileToIdeStack()
     {
-        $this->command->addFile($this->latestCreatedFileIn(base_path($this->relativeToBasePath)));
+        if ($file = $this->command->naming[$this->key]->getFile()) {
+            $this->command->addFile($this->getSplFile($file));
+        }
     }
 
-    /**
-     * Returns the latest created File in given Path to use it for $filesToBeOpened stack
-     *
-     * @param string $path
-     *
-     * @return SplFileInfo
-     */
-    protected function latestCreatedFileIn(string $path): SplFileInfo
+    private function getSplFile(string $pathToFile): \SplFileInfo
     {
-        $sortedByMTime = array_sort($this->filesystem->files($path), function ($file) {
-            return $file->getMTime();
-        });
+        $splFile = new \SplFileInfo($pathToFile);
 
-        return end($sortedByMTime);
+        if ($splFile->isFile()) {
+            return $splFile;
+        }
+
+        return null;
     }
 }

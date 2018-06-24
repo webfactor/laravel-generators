@@ -4,9 +4,9 @@ namespace Webfactor\Laravel\Generators\Schemas\FieldTypes;
 
 use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
-class TextType extends SchemaFieldAbstract
+class SummernoteType extends SchemaFieldAbstract
 {
-    public $validationRule = 'required';
+    public $validationRule = '';
 
     public $migrationField = [
         'type' => 'text',
@@ -17,6 +17,6 @@ class TextType extends SchemaFieldAbstract
     ];
 
     public $crudField = [
-        'type' => 'text',
+        'type' => 'summernote',
     ];
 }

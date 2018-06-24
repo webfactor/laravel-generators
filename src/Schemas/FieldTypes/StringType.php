@@ -2,13 +2,21 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\FieldTypes;
 
-use Webfactor\Laravel\Generators\Contracts\MigrationFieldAbstract;
+use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
-class StringType extends MigrationFieldAbstract
+class StringType extends SchemaFieldAbstract
 {
-    protected $validationRuleType = 'string';
+    public $validationRule = 'required';
 
-    protected $crudColumnType = 'text';
+    public $migrationField = [
+        'type' => 'string',
+    ];
 
-    protected $crudFieldType = 'text';
+    public $crudColumn = [
+        'type' => 'text',
+    ];
+
+    public $crudField = [
+        'type' => 'text',
+    ];
 }

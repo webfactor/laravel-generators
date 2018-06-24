@@ -4,28 +4,22 @@ namespace Webfactor\Laravel\Generators\Services;
 
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
+use Webfactor\Laravel\Generators\Traits\CanGenerateFile;
 
 class FactoryService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'database/factories';
+    use CanGenerateFile;
 
-    public function call()
+    protected $key = 'factory';
+
+    protected function buildFileContent()
     {
-        $this->command->call('make:factory', [
-            'name'    => $this->getName($this->command->entity),
-            '--model' => 'Models\\' . $this->getModelName($this->command->entity),
-        ]);
-
-        $this->addLatestFileToIdeStack();
+        $this->replaceModelRelatedStrings();
     }
 
-    public function getName(string $entity): string
+    protected function replaceModelRelatedStrings()
     {
-        return ucfirst($entity) . 'Factory';
-    }
-
-    public function getModelName(string $entity): string
-    {
-        return ucfirst($entity);
+        $this->fileContent = str_replace('__model_namespace__', $this->command->naming['crudModel']->getNamespace(), $this->fileContent);
+        $this->fileContent = str_replace('__model_class__', $this->command->naming['crudModel']->getClassName(), $this->fileContent);
     }
 }

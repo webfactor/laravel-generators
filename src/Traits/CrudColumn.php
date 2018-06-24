@@ -4,29 +4,17 @@ namespace Webfactor\Laravel\Generators\Traits;
 
 trait CrudColumn
 {
-    private $column = [];
-
-    protected $crudColumnType;
-
-    protected $crudColumnOptions = [];
+    public $crudColumn = [
+        'type' => 'text',
+    ];
 
     public function getCrudColumn(): array
     {
-        $this->column['name'] = $this->name;
-        $this->column['label'] = $this->name;
-        $this->column['type'] = $this->crudColumnType;
-
-        if ($this->crudColumnOptions) {
-            $this->addCrudColumnOptions();
-        }
-
-        return $this->column;
+        return $this->crudColumn;
     }
 
-    private function addCrudColumnOptions()
+    private function setCrudColumnOptions(string $crudColumnOptions)
     {
-        foreach ($this->crudColumnOptions as $key => $option) {
-            $this->column[$key] = $option;
-        }
+        $this->setOptions('crudColumn', $crudColumnOptions);
     }
 }

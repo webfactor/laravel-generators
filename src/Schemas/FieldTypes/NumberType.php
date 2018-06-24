@@ -4,19 +4,19 @@ namespace Webfactor\Laravel\Generators\Schemas\FieldTypes;
 
 use Webfactor\Laravel\Generators\Contracts\SchemaFieldAbstract;
 
-class TextType extends SchemaFieldAbstract
+class NumberType extends SchemaFieldAbstract
 {
-    public $validationRule = 'required';
+    public $validationRule = 'required|integer';
 
     public $migrationField = [
-        'type' => 'text',
+        'type' => 'integer',
     ];
 
     public $crudColumn = [
-        'type' => 'text',
+        'type' => 'number',
     ];
 
     public $crudField = [
-        'type' => 'text',
+        'type' => 'number',
     ];
 }

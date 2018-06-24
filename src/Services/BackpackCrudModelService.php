@@ -2,53 +2,32 @@
 
 namespace Webfactor\Laravel\Generators\Services;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Webfactor\Laravel\Generators\Contracts\ServiceAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
+use Webfactor\Laravel\Generators\Traits\CanGenerateFile;
 
 class BackpackCrudModelService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'app/Models';
+    use CanGenerateFile;
 
-    private $fillable;
+    protected $key = 'crudModel';
 
-    public function call()
+    protected function buildFileContent()
     {
-        $this->command->call('make:crud-model', [
-            'name' => $this->getName($this->command->entity),
-        ]);
-
-        $this->addLatestFileToIdeStack();
-        $this->fillFillableAttributeInGeneratedModelFromSchema();
+        $this->replaceClassNamespace();
+        $this->replaceClassName();
+        $this->replaceTableName();
+        $this->replaceFillable();
     }
 
-    /**
-     * @param string $entity
-     *
-     * @return string
-     */
-    public function getName(string $entity): string
+    protected function replaceFillable()
     {
-        return ucfirst($entity);
-    }
+        $fillables = $this->command->schema->getStructure()
+            ->map(function ($item) {
+                return "'" . $item->name . "'";
+            });
 
-    private function fillFillableAttributeInGeneratedModelFromSchema()
-    {
-        $modelFile = end($this->command->filesToBeOpened);
-
-        $model = $this->filesystem->get($modelFile);
-        $model = str_replace('__fillable__', $this->getFillableFromSchema(), $model);
-        $this->filesystem->put($modelFile, $model);
-    }
-
-    /**
-     * @return string
-     */
-    private function getFillableFromSchema()
-    {
-        $this->command->schema->getStructure()->each(function ($field) {
-            $this->fillable .= "'" . $field->getName() . "',\n";
-        });
-
-        return $this->fillable;
+        $this->fileContent = str_replace('__fillable__', $fillables->implode(', '), $this->fileContent);
     }
 }

@@ -9,56 +9,25 @@ use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
 class SidebarService extends ServiceAbstract implements ServiceInterface
 {
-    protected $relativeToBasePath = 'resources/views/vendor/backpack/base/inc';
-
-    protected $fileName = 'sidebar_content.blade.php';
-
-    private $sidebarFile;
+    protected $key = 'sidebar';
 
     public function call()
     {
-        $this->sidebarFile = $this->getFilePath();
+        $sidebarFile = $this->naming->getFile();
 
-        if ($this->filesystem->exists($this->sidebarFile)) {
-            $this->writeFile();
-            $this->addLatestFileToIdeStack();
+        if ($this->filesystem->exists($sidebarFile)) {
+            $this->filesystem->append($sidebarFile, $this->getSidebarString());
+            $this->addGeneratedFileToIdeStack();
         }
     }
 
-    private function getRouteName(): string
-    {
-        return strtolower($this->command->entity);
-    }
-
-    private function getLanguageName(): string
-    {
-        return snake_case($this->command->entity);
-    }
-
-    /**
-     * Build the class with the given name.
-     *
-     * @param string $name
-     *
-     * @return string
-     */
-    private function writeFile()
-    {
-        $this->filesystem->append($this->sidebarFile, $this->getRouteString());
-    }
-
-    private function getFilePath()
-    {
-        return base_path($this->relativeToBasePath) . '/' . $this->fileName;
-    }
-
-    private function getRouteString()
+    private function getSidebarString()
     {
         return <<<FILE
 
 <li>
-    <a href="{{ backpack_url('{$this->getRouteName()}') }}">
-        <i class="fa fa-question"></i><span>{{ trans('models.{$this->getLanguageName()}.plural') }}</span>
+    <a href="{{ backpack_url('{$this->command->naming['routeFile']->getName()}') }}">
+        <i class="fa fa-question"></i><span>{{ trans('models.{$this->command->naming['languageFile']->getName()}.plural') }}</span>
     </a>
 </li>
 FILE;

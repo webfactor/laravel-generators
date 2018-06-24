@@ -20,9 +20,6 @@ class GeneratorsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeEntity::class,
-                MakeBackpackCrudController::class,
-                MakeBackpackCrudModel::class,
-                MakeBackpackCrudRequest::class,
             ]);
 
             $this->publishes([

@@ -7,15 +7,14 @@ return [
      */
     'services' => [
         Webfactor\Laravel\Generators\Services\MigrationService::class,
-        Webfactor\Laravel\Generators\Services\LanguageService::class,
+        Webfactor\Laravel\Generators\Services\LanguageFileService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudModelService::class,
-        Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\BackpackCrudRequestService::class,
+        Webfactor\Laravel\Generators\Services\BackpackCrudControllerService::class,
         Webfactor\Laravel\Generators\Services\FactoryService::class,
         Webfactor\Laravel\Generators\Services\SeederService::class,
         Webfactor\Laravel\Generators\Services\RouteService::class,
         Webfactor\Laravel\Generators\Services\SidebarService::class,
-        Webfactor\Laravel\Generators\Services\OpenIdeService::class,
     ],
 
     /*
@@ -25,4 +24,24 @@ return [
     'ides'     => [
         'pstorm' => Webfactor\Laravel\Generators\Recipes\PhpStormOpener::class,
     ],
+
+    'naming' => [
+        'migration' => Webfactor\Laravel\Generators\Schemas\Naming\Migration::class,
+        'languageFile' => Webfactor\Laravel\Generators\Schemas\Naming\LanguageFile::class,
+        'crudModel' => Webfactor\Laravel\Generators\Schemas\Naming\CrudModel::class,
+        'crudRequest' => Webfactor\Laravel\Generators\Schemas\Naming\CrudRequest::class,
+        'crudController' => Webfactor\Laravel\Generators\Schemas\Naming\CrudController::class,
+        'routeFile' => Webfactor\Laravel\Generators\Schemas\Naming\RouteFile::class,
+        'factory' => Webfactor\Laravel\Generators\Schemas\Naming\Factory::class,
+        'seeder' => Webfactor\Laravel\Generators\Schemas\Naming\Seeder::class,
+        'sidebar' => Webfactor\Laravel\Generators\Schemas\Naming\Sidebar::class,
+    ],
+
+    'fieldTypes' => [
+        'date' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\DateType::class,
+        'number' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\NumberType::class,
+        'summernote' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\SummernoteType::class,
+        'string' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\StringType::class,
+        'text' => \Webfactor\Laravel\Generators\Schemas\FieldTypes\TextType::class,
+    ]
 ];

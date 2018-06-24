@@ -4,18 +4,15 @@ namespace Webfactor\Laravel\Generators\Traits;
 
 trait ValidationRule
 {
-    protected $validationRuleType;
-
-    protected $validationRuleOptions = [];
+    public $validationRule;
 
     public function getValidationRule(): string
     {
-        return 'required|' . $this->validationRuleType;
+        return $this->validationRule;
+    }
 
-        /*if ($this->crudFieldOptions) {
-            $this->addCrudFieldOptions();
-        }
-
-        return $this->field;*/
+    private function setValidationRule(string $validationRule)
+    {
+        $this->validationRule = $validationRule;
     }
 }

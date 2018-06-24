@@ -4,29 +4,17 @@ namespace Webfactor\Laravel\Generators\Traits;
 
 trait CrudField
 {
-    private $field = [];
-
-    protected $crudFieldType;
-
-    protected $crudFieldOptions = [];
+    public $crudField = [
+        'type' => 'text',
+    ];
 
     public function getCrudField(): array
     {
-        $this->field['name'] = $this->name;
-        $this->field['label'] = $this->name;
-        $this->field['type'] = $this->crudFieldType;
-
-        if ($this->crudFieldOptions) {
-            $this->addCrudFieldOptions();
-        }
-
-        return $this->field;
+        return $this->crudField;
     }
 
-    private function addCrudFieldOptions()
+    private function setCrudFieldOptions(string $crudFieldOptions)
     {
-        foreach ($this->crudFieldOptions as $key => $option) {
-            $this->field[$key] = $option;
-        }
+        $this->setOptions('crudField', $crudFieldOptions);
     }
 }

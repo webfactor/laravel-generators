@@ -6,7 +6,7 @@ use Webfactor\Laravel\Generators\Traits\CrudColumn;
 use Webfactor\Laravel\Generators\Schemas\CrudField;
 use Webfactor\Laravel\Generators\Schemas\RequestValidationRule;
 
-interface MigrationFieldTypeInterface
+interface SchemaFieldTypeInterface
 {
     public function getValidationRule(): string;
 

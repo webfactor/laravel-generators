@@ -82,6 +82,11 @@ class Schema
         return $this->getStructure()->pluck('name');
     }
 
+    public function getMigrationFields()
+    {
+        return $this->getStructure()->pluck('migrationField');
+    }
+
     public function getCrudFields()
     {
         return $this->getStructure()->pluck('crudField');

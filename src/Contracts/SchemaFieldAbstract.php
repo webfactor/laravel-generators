@@ -25,9 +25,9 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
      * @var array
      */
     private $availableMethods = [
-        'field' => 'setCrudFieldOptions',
+        'field'  => 'setCrudFieldOptions',
         'column' => 'setCrudColumnOptions',
-        'rule' => 'setValidationRule',
+        'rule'   => 'setValidationRule',
     ];
 
     /**
@@ -38,7 +38,7 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
      */
     public function __construct(array $fieldOptions, array $crudOptions = [])
     {
-        $this->name = $this->crudField['name'] = $this->crudColumn['name'] = $fieldOptions['name'];
+        $this->name = $this->crudField['name'] = $this->crudColumn['name'] = $this->migrationField['name'] = $fieldOptions['name'];
 
         $this->setMigrationField($fieldOptions['options']);
         $this->parseCrudOptions($crudOptions);
@@ -78,8 +78,6 @@ abstract class SchemaFieldAbstract implements SchemaFieldTypeInterface
      */
     private function setOptions(string $variableName, string $options): void
     {
-        $this->{$variableName}['name'] = $this->name;
-
         if ($options) {
             foreach (explode('|', $options) as $option) {
                 if (str_contains($option, ':')) {

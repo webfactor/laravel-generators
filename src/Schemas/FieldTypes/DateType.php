@@ -8,6 +8,10 @@ class DateType extends SchemaFieldAbstract
 {
     public $validationRule = 'required|date';
 
+    public $migrationField = [
+        'type' => 'date',
+    ];
+
     public $crudColumn = [
         'type' => 'date',
     ];

@@ -8,6 +8,10 @@ class IntegerType extends SchemaFieldAbstract
 {
     public $validationRule = 'required|integer';
 
+    public $migrationField = [
+        'type' => 'integer',
+    ];
+
     public $crudColumn = [
         'type' => 'number',
     ];

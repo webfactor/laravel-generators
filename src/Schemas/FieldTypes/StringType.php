@@ -8,6 +8,10 @@ class StringType extends SchemaFieldAbstract
 {
     public $validationRule = 'required';
 
+    public $migrationField = [
+        'type' => 'string',
+    ];
+
     public $crudColumn = [
         'type' => 'text',
     ];

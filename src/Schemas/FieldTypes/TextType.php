@@ -8,11 +8,15 @@ class TextType extends SchemaFieldAbstract
 {
     public $validationRule = 'required';
 
+    public $migrationField = [
+        'type' => 'text',
+    ];
+
     public $crudColumn = [
         'type' => 'text',
     ];
 
     public $crudField = [
-        'type' => 'summernote',
+        'type' => 'text',
     ];
 }

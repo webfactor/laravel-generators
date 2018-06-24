@@ -31,7 +31,7 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
     }
 
     /**
-     * Generate migration fields in stub file.
+     * Replace migration fields in stub file.
      *
      * @return string
      */
@@ -40,8 +40,28 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
         $this->fileContent = str_replace('__migration_fields__', $this->generateMigrationFields(), $this->fileContent);
     }
 
+    /**
+     * Generates the migration fields from schema
+     *
+     * @return string
+     */
     protected function generateMigrationFields(): string
     {
-        return '';
+        $migrationFields = '';
+
+        foreach ($this->command->schema->getMigrationFields() as $migrationField) {
+            $migrationFields .= '$table->' . $migrationField['type'] . '(\'' . $migrationField['name'] . '\')';
+            unset($migrationField['type'], $migrationField['name']);
+
+            if (!empty($migrationField)) {
+                foreach ($migrationField as $key => $item) {
+                    $migrationFields .= '->' . $key . '(' . ((!is_bool($item)) ? '\'' . $item . '\'' : '') . ')';
+                }
+            }
+
+            $migrationFields .= ";\n";
+        }
+
+        return $migrationFields;
     }
 }

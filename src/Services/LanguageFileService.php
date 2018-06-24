@@ -26,6 +26,10 @@ class LanguageFileService extends ServiceAbstract implements ServiceInterface
             $translation = include $this->naming->getFile();
         }
 
+        if (!isset($translation)) {
+            $translation = [];
+        }
+
         $translation = array_add($translation, $this->naming->getName(), [
             'singular' => $this->naming->getSingular(),
             'plural'   => $this->naming->getPlural(),

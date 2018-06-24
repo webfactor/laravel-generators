@@ -59,7 +59,7 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
                 }
             }
 
-            $migrationFields .= ";\n";
+            $migrationFields .= ";" . PHP_EOL;
         }
 
         return $migrationFields;

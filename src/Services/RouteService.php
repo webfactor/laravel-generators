@@ -21,6 +21,6 @@ class RouteService extends ServiceAbstract implements ServiceInterface
 
     private function getRouteString()
     {
-        return "\r\n" . 'CRUD::resource(\'' . $this->naming->getName() . '\', \'' . $this->command->naming['crudController']->getClassName() . '\');';
+        return PHP_EOL . 'CRUD::resource(\'' . $this->naming->getName() . '\', \'' . $this->command->naming['crudController']->getClassName() . '\');';
     }
 }

@@ -21,6 +21,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 3.1.0 - 2018-06-25
+
+### Added
+
+- Opener classes for Sublime and VS Code
+
 ## 3.0.0 - 2018-06-24 - Complete Refactoring
 
 The Refactoring is supposed to provide new functions more easily in the future.

@@ -2,7 +2,6 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
-use Carbon\Carbon;
 use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
 
 class Sidebar extends NamingAbstract

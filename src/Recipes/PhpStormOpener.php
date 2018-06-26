@@ -7,6 +7,9 @@ use Webfactor\Laravel\Generators\Contracts\OpenInIdeInterface;
 
 class PhpStormOpener extends OpenInIdeAbstract implements OpenInIdeInterface
 {
+    /**
+     *  Opens all given files in PhpStorm
+     */
     public function open()
     {
         foreach ($this->files as $file) {

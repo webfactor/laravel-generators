@@ -7,6 +7,9 @@ use Webfactor\Laravel\Generators\Contracts\OpenInIdeInterface;
 
 class VSCodeOpener extends OpenInIdeAbstract implements OpenInIdeInterface
 {
+    /**
+     *  Opens all given files in VS Code
+     */
     public function open()
     {
         foreach ($this->files as $file) {

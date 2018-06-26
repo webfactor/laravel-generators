@@ -2,13 +2,10 @@
 
 namespace Webfactor\Laravel\Generators\Schemas\Naming;
 
-use Illuminate\Console\DetectsApplicationNamespace;
 use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
 
 class CrudModel extends NamingAbstract
 {
-    use DetectsApplicationNamespace;
-
     /**
      * @return string
      */

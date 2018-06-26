@@ -12,6 +12,6 @@ class __class_name__ extends Seeder
      */
     public function run()
     {
-        create(__model_class__::class, [], 20);
+        factory(__model_class__::class, 20)->create();
     }
 }

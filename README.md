@@ -124,7 +124,86 @@ public $crudField = [
 
 ## Naming
 
-`// to be written`
+You can provide your own naming convention classes by registering them in the config file. This classes should extend `Webfactor\Laravel\Generators\Contracts\NamingAbstract` to provide a certain base functionality.
+
+Example for `Webfactor\Laravel\Generators\Schemas\Naming\CrudController`:
+
+```php
+<?php
+
+namespace Webfactor\Laravel\Generators\Schemas\Naming;
+
+use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
+
+class CrudController extends NamingAbstract
+{
+    /**
+     * @return string
+     */
+    public function getNamespace(): string
+    {
+        return $this->getAppNamespace() . 'Http\\Controllers\\Admin';
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassName(): string
+    {
+        return ucfirst($this->entity) . 'CrudController';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName(): string
+    {
+        return $this->getClassName() . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return app_path('Http/Controllers/Admin');
+    }
+
+    /**
+     * @return string
+     */
+    public function getStub(): string
+    {
+        return __DIR__ . '/../../../stubs/crud-controller.stub';
+    }
+}
+```
+
+All naming classes defined in the config file will be parsed and saved with their keys to the `$naming`-array of the command. As the entire command is available in each service class, you can access ALL naming conventions everywhere!
+
+For example you need the `Request`-namespace in the CrudController: `$this->command->naming['crudRequest']->getNamespace()`.
+
+Furthermore there is a helper to keep things a bit simpler if you are IN the service class of the coresponding naming class! Just define `$key` and you can access the naming conventions directly through `$this->naming`:
+
+```php
+<?php
+
+namespace Webfactor\Laravel\Generators\Services;
+
+class MyService extends ServiceAbstract implements ServiceInterface
+{
+    protected $key = 'myNaming';
+
+    protected function call()
+    {
+        echo $this->naming;
+        // same to
+        echo $this->command->naming['myNaming'];
+        // but you can additionally access
+        echo $this->command->naming['otherNaming'];
+    }
+}
+``` 
 
 ## Add files to git
 

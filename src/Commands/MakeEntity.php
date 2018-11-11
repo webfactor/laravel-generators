@@ -2,13 +2,13 @@
 
 namespace Webfactor\Laravel\Generators\Commands;
 
-use Illuminate\Console\Command;
+use Webfactor\Laravel\Generators\Contracts\CommandAbstract;
 use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 use Webfactor\Laravel\Generators\Schemas\Schema;
 use Webfactor\Laravel\Generators\Services\AddToGitService;
 use Webfactor\Laravel\Generators\Services\OpenIdeService;
 
-class MakeEntity extends Command
+class MakeEntity extends CommandAbstract
 {
     /**
      * The name and signature of the console command.
@@ -25,33 +25,11 @@ class MakeEntity extends Command
     protected $description = 'Make Entity';
 
     /**
-     * Paths to files which should automatically be opened in IDE if the
-     * option --ide is set (and IDE capable).
-     *
-     * @var array
-     */
-    public $filesToBeOpened = [];
-
-    /**
-     * The name of the entity being created.
-     *
-     * @var string
-     */
-    public $entity;
-
-    /**
      * The Schema object.
      *
      * @var Schema
      */
     public $schema;
-
-    /**
-     * The naming schema object.
-     *
-     * @var array
-     */
-    public $naming = [];
 
     /**
      * Execute the console command.
@@ -122,18 +100,5 @@ class MakeEntity extends Command
     private function executeService(ServiceInterface $service)
     {
         $service->call();
-    }
-
-    /**
-     * Adds file to $filesToBeOpened stack.
-     *
-     * @param $file
-     * @return void
-     */
-    public function addFile(?\SplFileInfo $file): void
-    {
-        if ($file) {
-            array_push($this->filesToBeOpened, $file);
-        }
     }
 }

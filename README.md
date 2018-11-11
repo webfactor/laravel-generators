@@ -219,7 +219,7 @@ If specified we will automatically open all generated files in the IDE of your c
 There are three options to use this feature (applied in this order):
 * `{--ide=}` command option
 * __.env__ variable `APP_EDITOR`
-* config value `config(app.editor)`
+* config value `config('app.editor')`
 
 The keys in the `ides`-Array of the config file are possible values for the command option.
 Per default we provide:

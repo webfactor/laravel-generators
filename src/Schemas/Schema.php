@@ -12,6 +12,7 @@ class Schema
 
     public function __construct(string $schema)
     {
+        $schema = str_replace(', ', ',', $schema);
         $this->parseSchemaFields($this->getSchemaFieldsFromSchemaString($schema));
     }
 

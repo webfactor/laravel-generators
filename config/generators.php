@@ -22,9 +22,10 @@ return [
      * is used. Have to implement Webfactor\Laravel\Generators\Contracts\OpenIdeInterface.
      */
     'ides'     => [
-        'pstorm' => Webfactor\Laravel\Generators\Recipes\PhpStormOpener::class,
-        'sublime' => Webfactor\Laravel\Generators\Recipes\SublimeOpener::class,
-        'vscode' => Webfactor\Laravel\Generators\Recipes\VSCodeOpener::class,
+        'phpstorm' => Webfactor\Laravel\Generators\Recipes\PhpStormOpener::class,
+        'pstorm'   => Webfactor\Laravel\Generators\Recipes\PhpStormOpener::class,
+        'sublime'  => Webfactor\Laravel\Generators\Recipes\SublimeOpener::class,
+        'vscode'   => Webfactor\Laravel\Generators\Recipes\VSCodeOpener::class,
     ],
 
     'naming' => [

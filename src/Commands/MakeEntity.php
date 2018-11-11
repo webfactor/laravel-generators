@@ -78,18 +78,19 @@ class MakeEntity extends Command
     private function loadNaming()
     {
         $this->info('Load Naming Classes');
-        $progressBar = $this->output->createProgressBar(count(config('webfactor.generators.naming')));
 
-        foreach (config('webfactor.generators.naming') as $key => $naming) {
-            $progressBar->advance();
-            $this->info(' Naming Class: ' . $naming);
+        $namingClasses = config('webfactor.generators.naming');
+        $count = count($namingClasses);
+        $counter = 0;
+
+        foreach ($namingClasses as $key => $naming) {
+            $this->info(++$counter . '/' . $count . ' Naming Class: ' . $naming, 'v');
 
             $namingObject = new $naming($this->entity);
             $this->naming[$key] = $namingObject;
         }
 
-        $progressBar->finish();
-        $this->info(' Naming Classes loaded');
+        $this->info('Naming Classes loaded');
         $this->line('');
     }
 

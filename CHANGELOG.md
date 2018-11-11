@@ -21,6 +21,17 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 3.2.0 - 2018-11-11
+
+### Added
+
+- use "open in IDE" also via `config` or `.env` - see README for details
+- strip spaces from schema-string
+
+### Changed
+
+- output naming classes only with -v (verbose) option
+
 ## 3.1.0 - 2018-06-25
 
 ### Added

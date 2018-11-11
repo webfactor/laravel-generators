@@ -215,7 +215,22 @@ With `{--git}` option all generated files will be added to git automatically. In
 
 ## Open files in IDE
 
-With `{--ide=}` option you can define your preferred IDE to open all automatically generated files. The keys in the `ides`-Array of the config file are possible values for the command option. You can add other IDE-Opener classes, they have to implement `Webfactor\Laravel\Generators\Contracts\OpenInIdeInterface`. This package comes with implementations for PhpStorm (`pstorm`), Sublime (`sublime`) and VS Code (`vscode`). 
+If specified we will automatically open all generated files in the IDE of your choice.  
+There are three options to use this feature (applied in tis order):
+* `{--ide=}` command option
+* __.env__ variable `APP_EDITOR`
+* config value `config(app.editor)`
+
+The keys in the `ides`-Array of the config file are possible values for the command option.
+Per default we provide:
+* `phpstorm`: will open all files with `pstorm` CLI helper of PhpStorm
+* `pstorm`: will open all files with `pstorm` CLI helper of PhpStorm
+* `sublime`: will open all files with `subl` CLI helper of Sublime
+* `subl`: will open all files with `subl` CLI helper of Sublime
+* `vscode`: will open all files with `code` CLI helper of VSCode
+* `code`: will open all files with `code` CLI helper of VSCode
+
+You can add other IDE-Opener classes. They have to implement `Webfactor\Laravel\Generators\Contracts\OpenInIdeInterface`. 
 
 In your service class you have to add the generated file to a stack (see "Add files to git" section)
 

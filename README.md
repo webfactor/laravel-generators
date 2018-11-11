@@ -216,7 +216,7 @@ With `{--git}` option all generated files will be added to git automatically. In
 ## Open files in IDE
 
 If specified we will automatically open all generated files in the IDE of your choice.  
-There are three options to use this feature (applied in tis order):
+There are three options to use this feature (applied in this order):
 * `{--ide=}` command option
 * __.env__ variable `APP_EDITOR`
 * config value `config(app.editor)`

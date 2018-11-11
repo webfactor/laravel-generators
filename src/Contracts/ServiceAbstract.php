@@ -14,12 +14,14 @@ abstract class ServiceAbstract
 
     protected $filesystem;
 
-    public function __construct(CommandAbstract $command)
+    public function __construct(CommandAbstract $command, ?NamingAbstract $naming = null)
     {
         $this->command = $command;
         $this->filesystem = new Filesystem();
 
-        if ($this->key) {
+        $this->naming = $naming;
+
+        if (is_null($naming) && $this->key) {
             $this->naming = $this->command->naming[$this->key];
         }
     }

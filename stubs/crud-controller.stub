@@ -37,6 +37,9 @@ class __class_name__ extends CrudController
 
         $this->crud->addFields(__fields__);
 
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
         /*
         |--------------------------------------------------------------------------
         | CRUD FILTERS

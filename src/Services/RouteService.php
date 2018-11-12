@@ -30,12 +30,15 @@ class RouteService extends ServiceAbstract implements ServiceInterface
 
         // insert the given code before the file's last line
         $file_lines = preg_split('/\r\n|\r|\n/', $old_file_content);
-        $end_line_number = $this->getRoutesFileEndLine($file_lines);
-        $file_lines[$end_line_number + 1] = $file_lines[$end_line_number];
-        $file_lines[$end_line_number] = '    ' . $this->getRouteString();
-        $new_file_content = implode(PHP_EOL, $file_lines);
+        if ($end_line_number = $this->getRoutesFileEndLine($file_lines)) {
+            $file_lines[$end_line_number + 1] = $file_lines[$end_line_number];
+            $file_lines[$end_line_number] = '    ' . $this->getRouteString();
+            $new_file_content = implode(PHP_EOL, $file_lines);
 
-        $this->filesystem->put($routeFile, $new_file_content);
+            $this->filesystem->put($routeFile, $new_file_content);
+        } else {
+            $this->filesystem->append($routeFile, PHP_EOL . $this->getRouteString());
+        }
     }
 
     private function getRoutesFileEndLine($file_lines)

@@ -3,7 +3,6 @@
 namespace Webfactor\Laravel\Generators\Contracts;
 
 use Illuminate\Filesystem\Filesystem;
-use Webfactor\Laravel\Generators\Commands\MakeEntity;
 
 abstract class ServiceAbstract
 {
@@ -15,12 +14,14 @@ abstract class ServiceAbstract
 
     protected $filesystem;
 
-    public function __construct(MakeEntity $command)
+    public function __construct(CommandAbstract $command, ?NamingAbstract $naming = null)
     {
         $this->command = $command;
         $this->filesystem = new Filesystem();
 
-        if ($this->key) {
+        $this->naming = $naming;
+
+        if (is_null($naming) && $this->key) {
             $this->naming = $this->command->naming[$this->key];
         }
     }

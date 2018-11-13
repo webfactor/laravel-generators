@@ -33,6 +33,14 @@ class Factory extends NamingAbstract
     /**
      * @return string
      */
+    public function getRelativeFilePath(): string
+    {
+        return 'database/factories/'.$this->getFileName();
+    }
+
+    /**
+     * @return string
+     */
     public function getStub(): string
     {
         return __DIR__ . '/../../../stubs/factory.stub';

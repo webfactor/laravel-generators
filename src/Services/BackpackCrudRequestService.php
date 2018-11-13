@@ -14,6 +14,10 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
 
     protected $key = 'crudRequest';
 
+    public function getConsoleOutput() {
+        return 'Generated request: '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     protected function buildFileContent()
     {
         $this->replaceClassNamespace();
@@ -25,4 +29,5 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
     {
         $this->fileContent = str_replace('__rules__', ShortSyntaxArray::parse($this->command->schema->getValidationRules()->toArray()), $this->fileContent);
     }
+
 }

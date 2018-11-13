@@ -13,6 +13,10 @@ class LanguageFileService extends ServiceAbstract implements ServiceInterface
 
     protected $key = 'languageFile';
 
+    public function getConsoleOutput() {
+        return 'Added translatable names for this entity to '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     /**
      * Build the language file.
      *
@@ -44,7 +48,7 @@ class LanguageFileService extends ServiceAbstract implements ServiceInterface
 
         return <<<FILE
 <?php
-        
+
 return {$content};
 FILE;
     }

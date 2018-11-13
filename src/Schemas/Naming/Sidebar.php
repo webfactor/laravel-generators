@@ -6,6 +6,8 @@ use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
 
 class Sidebar extends NamingAbstract
 {
+    private $path = 'views/vendor/backpack/base/inc';
+
     /**
      * @return string
      */
@@ -27,6 +29,14 @@ class Sidebar extends NamingAbstract
      */
     public function getPath(): string
     {
-        return resource_path('views/vendor/backpack/base/inc');
+        return resource_path($this->path);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRelativeFilePath(): string
+    {
+        return 'resources/'.$this->path.'/'.$this->getFileName();
     }
 }

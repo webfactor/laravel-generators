@@ -13,6 +13,10 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
 
     protected $key = 'migration';
 
+    public function getConsoleOutput() {
+        return 'Generated migration file: '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     public function call()
     {
         $this->generateFile();

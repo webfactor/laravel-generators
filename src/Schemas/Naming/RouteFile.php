@@ -29,4 +29,12 @@ class RouteFile extends NamingAbstract
     {
         return base_path('routes/backpack');
     }
+
+    /**
+     * @return string
+     */
+    public function getRelativeFilePath(): string
+    {
+        return 'routes/backpack/'.$this->getFileName();
+    }
 }

@@ -9,6 +9,10 @@ class RouteService extends ServiceAbstract implements ServiceInterface
 {
     protected $key = 'routeFile';
 
+    public function getConsoleOutput() {
+        return 'Added route to '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     public function call()
     {
         $routeFile = $this->naming->getFile();

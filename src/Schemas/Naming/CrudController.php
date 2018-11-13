@@ -6,6 +6,8 @@ use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
 
 class CrudController extends NamingAbstract
 {
+    private $path = 'Http/Controllers/Admin';
+
     /**
      * @return string
      */
@@ -35,7 +37,15 @@ class CrudController extends NamingAbstract
      */
     public function getPath(): string
     {
-        return app_path('Http/Controllers/Admin');
+        return app_path($this->path);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRelativeFilePath(): string
+    {
+        return str_replace("\\", '/', $this->getAppNamespace()).$this->path.'/'.$this->getFileName();
     }
 
     /**

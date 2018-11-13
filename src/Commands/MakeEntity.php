@@ -47,15 +47,13 @@ class MakeEntity extends CommandAbstract
 
     private function loadSchema()
     {
-        $this->info('Load Schema');
+        $this->info('Loading Schema');
         $this->schema = new Schema($this->option('schema'));
-        $this->info('Schema loaded');
-        $this->line('');
     }
 
     private function loadNaming()
     {
-        $this->info('Load Naming Classes');
+        $this->info('Loading Naming Classes');
 
         $namingClasses = config('webfactor.generators.naming');
         $count = count($namingClasses);
@@ -68,7 +66,6 @@ class MakeEntity extends CommandAbstract
             $this->naming[$key] = $namingObject;
         }
 
-        $this->info('Naming Classes loaded');
         $this->line('');
     }
 
@@ -77,15 +74,14 @@ class MakeEntity extends CommandAbstract
         $services = $this->getServicesToBeExecuted();
         $progressBar = $this->output->createProgressBar(count($services));
 
-        foreach ($services as $serviceClass) {
-            $progressBar->advance();
-            $this->info(' Call: ' . $serviceClass);
+        foreach ($services as $k => $serviceClass) {
+            $serviceInstance = new $serviceClass($this);
+            $this->executeService($serviceInstance);
 
-            $this->executeService(new $serviceClass($this));
+            $progressBar->advance();
+            $this->info(' '.$serviceInstance->getConsoleOutput());
         }
 
-        $progressBar->finish();
-        $this->info(' Service Classes loaded');
         $this->line('');
     }
 

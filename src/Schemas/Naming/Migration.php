@@ -63,6 +63,14 @@ class Migration extends NamingAbstract
     /**
      * @return string
      */
+    public function getRelativeFilePath(): string
+    {
+        return 'database/migrations/'.$this->getFileName();
+    }
+
+    /**
+     * @return string
+     */
     public function getStub(): string
     {
         return __DIR__ . '/../../../stubs/migration.stub';

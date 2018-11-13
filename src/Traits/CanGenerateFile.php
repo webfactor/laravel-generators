@@ -70,4 +70,14 @@ trait CanGenerateFile
     {
         $this->fileContent = str_replace('__table_name__', $this->command->naming['migration']->getTableName(), $this->fileContent);
     }
+
+    /**
+     * Get the full path to the generated file.
+     *
+     * @return string
+     */
+    protected function getFilePath(): string
+    {
+        return $this->command->naming[$this->key]->getFile();
+    }
 }

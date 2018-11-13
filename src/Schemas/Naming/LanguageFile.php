@@ -45,4 +45,12 @@ class LanguageFile extends NamingAbstract
     {
         return resource_path('lang/' . \Lang::locale());
     }
+
+    /**
+     * @return string
+     */
+    public function getRelativeFilePath(): string
+    {
+        return 'resources/lang/'.\Lang::locale().'/'.$this->getFileName();
+    }
 }

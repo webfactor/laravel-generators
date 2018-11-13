@@ -14,7 +14,7 @@ class __class_name__ extends Migration
     {
         Schema::create('__table_name__', function (Blueprint $table) {
             $table->increments('id');
-            __migration_fields__
+__migration_fields__
             $table->timestamps();
         });
     }

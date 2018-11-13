@@ -7,10 +7,11 @@ use Webfactor\Laravel\Generators\Contracts\ServiceInterface;
 
 class OpenIdeService extends ServiceAbstract implements ServiceInterface
 {
-    public function getConsoleOutput() {
+    public function getConsoleOutput()
+    {
         $ide = $this->getIde();
 
-        return $ide ? 'Opening all generated or edited files in '.$this->getIde() : 'Editor not defined - not opening files in IDE';
+        return $ide ? 'Opening all generated or edited files in '.$ide : 'Editor not defined - not opening files in IDE';
     }
 
     public function call()

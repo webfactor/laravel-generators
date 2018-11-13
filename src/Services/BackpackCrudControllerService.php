@@ -14,7 +14,8 @@ class BackpackCrudControllerService extends ServiceAbstract implements ServiceIn
 
     protected $key = 'crudController';
 
-    public function getConsoleOutput() {
+    public function getConsoleOutput()
+    {
         return 'Generated controller: '.$this->command->naming[$this->key]->getRelativeFilePath();
     }
 

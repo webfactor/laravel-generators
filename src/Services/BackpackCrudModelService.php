@@ -13,7 +13,8 @@ class BackpackCrudModelService extends ServiceAbstract implements ServiceInterfa
 
     protected $key = 'crudModel';
 
-    public function getConsoleOutput() {
+    public function getConsoleOutput()
+    {
         return 'Generated model: '.$this->command->naming[$this->key]->getRelativeFilePath();
     }
 

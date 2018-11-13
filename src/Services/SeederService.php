@@ -12,7 +12,8 @@ class SeederService extends ServiceAbstract implements ServiceInterface
 
     protected $key = 'seeder';
 
-    public function getConsoleOutput() {
+    public function getConsoleOutput()
+    {
         return 'Generated seeder: '.$this->command->naming[$this->key]->getRelativeFilePath();
     }
 

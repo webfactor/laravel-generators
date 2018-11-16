@@ -17,10 +17,20 @@ class __class_name__ extends CrudController
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
         */
+        
         $this->crud->setModel(__model_class__::class);
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/__route_name__');
         $this->crud->setEntityNameStrings(trans('models.__languagefile_key__.singular'), trans('models.__languagefile_key__.plural'));
 
+        /*
+        |--------------------------------------------------------------------------
+        | OPTIONAL CRUD SETTINGS
+        |--------------------------------------------------------------------------
+        */
+        
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+        
         /*
         |--------------------------------------------------------------------------
         | CRUD COLUMNS
@@ -36,9 +46,6 @@ class __class_name__ extends CrudController
         */
 
         $this->crud->addFields(__fields__);
-
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
 
         /*
         |--------------------------------------------------------------------------

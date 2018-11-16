@@ -21,6 +21,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 3.3.0 - 2018-11-16
+
+### Added
+
+- add setRequiredFields() by default
+
 ## 3.2.0 - 2018-11-11
 
 ### Added

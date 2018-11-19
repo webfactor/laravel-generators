@@ -30,5 +30,4 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
     {
         $this->fileContent = str_replace('__rules__', ShortSyntaxArray::parse($this->command->schema->getValidationRules()->toArray()), $this->fileContent);
     }
-
 }

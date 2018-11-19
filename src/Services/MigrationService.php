@@ -50,7 +50,7 @@ class MigrationService extends ServiceAbstract implements ServiceInterface
         $migrationFields = '';
 
         foreach ($this->command->schema->getMigrationFields() as $migrationField) {
-            $migrationFields .= '$table->' . $migrationField['type'] . '(\'' . $migrationField['name'] . '\')';
+            $migrationFields .= '            $table->' . $migrationField['type'] . '(\'' . $migrationField['name'] . '\')';
             unset($migrationField['type'], $migrationField['name']);
 
             if (!empty($migrationField)) {

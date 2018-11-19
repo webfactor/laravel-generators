@@ -23,6 +23,6 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
 
     protected function replaceValidationRules()
     {
-        $this->fileContent = str_replace('__rules__', ShortSyntaxArray::parse($this->command->schema->getValidationRules()->toArray()), $this->fileContent);
+        $this->fileContent = str_replace('__rules__', ShortSyntaxArray::parse($this->command->schema->getValidationRules()->toArray(), true, 12), $this->fileContent);
     }
 }

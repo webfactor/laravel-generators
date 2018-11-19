@@ -98,4 +98,5 @@ class MakeEntity extends CommandAbstract
     {
         $service->call();
     }
+
 }

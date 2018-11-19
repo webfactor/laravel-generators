@@ -41,6 +41,14 @@ class Seeder extends NamingAbstract
     /**
      * @return string
      */
+    public function getRelativeFilePath(): string
+    {
+        return 'database/seeds/'.$this->getFileName();
+    }
+
+    /**
+     * @return string
+     */
     public function getStub(): string
     {
         return __DIR__ . '/../../../stubs/seeder.stub';

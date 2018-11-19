@@ -9,6 +9,11 @@ class SidebarService extends ServiceAbstract implements ServiceInterface
 {
     protected $key = 'sidebar';
 
+    public function getConsoleOutput()
+    {
+        return 'Added sidebar item to '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     public function call()
     {
         $sidebarFile = $this->naming->getFile();

@@ -12,6 +12,11 @@ class FactoryService extends ServiceAbstract implements ServiceInterface
 
     protected $key = 'factory';
 
+    public function getConsoleOutput()
+    {
+        return 'Generated factory file: '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     protected function buildFileContent()
     {
         $this->replaceModelRelatedStrings();

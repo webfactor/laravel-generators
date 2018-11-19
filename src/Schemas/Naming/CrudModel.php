@@ -6,6 +6,8 @@ use Webfactor\Laravel\Generators\Contracts\NamingAbstract;
 
 class CrudModel extends NamingAbstract
 {
+    private $path = 'Models';
+
     /**
      * @return string
      */
@@ -35,7 +37,15 @@ class CrudModel extends NamingAbstract
      */
     public function getPath(): string
     {
-        return app_path('Models');
+        return app_path($this->path);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRelativeFilePath(): string
+    {
+        return str_replace("\\", '/', $this->getAppNamespace()).$this->path.'/'.$this->getFileName();
     }
 
     /**

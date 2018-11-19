@@ -14,6 +14,11 @@ class BackpackCrudRequestService extends ServiceAbstract implements ServiceInter
 
     protected $key = 'crudRequest';
 
+    public function getConsoleOutput()
+    {
+        return 'Generated request: '.$this->command->naming[$this->key]->getRelativeFilePath();
+    }
+
     protected function buildFileContent()
     {
         $this->replaceClassNamespace();

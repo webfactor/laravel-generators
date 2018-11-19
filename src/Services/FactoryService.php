@@ -27,5 +27,4 @@ class FactoryService extends ServiceAbstract implements ServiceInterface
         $this->fileContent = str_replace('__model_namespace__', $this->command->naming['crudModel']->getNamespace(), $this->fileContent);
         $this->fileContent = str_replace('__model_class__', $this->command->naming['crudModel']->getClassName(), $this->fileContent);
     }
-
 }

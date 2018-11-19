@@ -44,7 +44,8 @@ abstract class ServiceAbstract
         return null;
     }
 
-    public function getConsoleOutput() {
+    public function getConsoleOutput()
+    {
         return 'Handling ' . $this->key;
     }
 }

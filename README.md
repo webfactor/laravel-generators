@@ -254,6 +254,8 @@ If you discover any security related issues, please email thomas.swonke@webfacto
 ## Credits
 
 - [Thomas Swonke][link-author]
+- [Oliver Ziegler](https://github.com/OliverZiegler)
+- [Cristian Tabacitu](https://github.com/tabacitu)
 - [All Contributors][link-contributors]
 
 ## License

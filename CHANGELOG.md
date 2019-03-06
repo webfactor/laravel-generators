@@ -21,6 +21,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 3.3.3 - 2018-03-16
+
+### Added 
+
+- support for Laravel 5.8
+
 ## 3.3.0 - 2018-11-16
 
 ### Added

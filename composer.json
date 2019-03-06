@@ -16,11 +16,17 @@
             "email": "thomas.swonke@webfactor.de",
             "homepage": "http://webfactor.de",
             "role": "Developer"
+        },
+        {
+            "name": "Oliver Ziegler",
+            "email": "oliver.ziegler@webfactor.de",
+            "homepage": "http://webfactor.de",
+            "role": "Developer"
         }
     ],
     "require": {
-        "illuminate/support": "~5.5.0|~5.6.0|~5.7.0",
-        "illuminate/database": "~5.5.0|~5.6.0|~5.7.0",
+        "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
         "php": "~7.1"
     },
     "require-dev": {

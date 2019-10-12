@@ -3,74 +3,40 @@
 namespace __class_namespace__;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use __model_namespace__\__model_class__;
 use __request_namespace__\__request_class__ as StoreRequest;
 use __request_namespace__\__request_class__ as UpdateRequest;
 
 class __class_name__ extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    
     public function setup()
-    {
-
-        /*
-        |--------------------------------------------------------------------------
-        | BASIC CRUD INFORMATION
-        |--------------------------------------------------------------------------
-        */
-        
+    {   
         $this->crud->setModel(__model_class__::class);
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/__route_name__');
         $this->crud->setEntityNameStrings(trans('models.__languagefile_key__.singular'), trans('models.__languagefile_key__.plural'));
-
-        /*
-        |--------------------------------------------------------------------------
-        | OPTIONAL CRUD SETTINGS
-        |--------------------------------------------------------------------------
-        */
-        
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
-        
-        /*
-        |--------------------------------------------------------------------------
-        | CRUD COLUMNS
-        |--------------------------------------------------------------------------
-        */
-
+    }
+    
+    protected function setupListOperation()
+    {
         $this->crud->addColumns(__columns__);
-
-        /*
-        |--------------------------------------------------------------------------
-        | CRUD FIELDS
-        |--------------------------------------------------------------------------
-        */
-
+    }
+    
+    protected function setupCreateOperation()
+    {
+        $this->crud->setValidation(StoreRequest::class);
+        
         $this->crud->addFields(__fields__);
-
-        /*
-        |--------------------------------------------------------------------------
-        | CRUD FILTERS
-        |--------------------------------------------------------------------------
-        */
-
-        //
     }
-
-    public function store(StoreRequest $request)
+    
+    protected function setupUpdateOperation()
     {
-        // your additional operations before save here
-        $redirect_location = parent::storeCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
-    }
-
-    public function update(UpdateRequest $request)
-    {
-        // your additional operations before save here
-        $redirect_location = parent::updateCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
+        $this->setupCreateOperation();
     }
 }
